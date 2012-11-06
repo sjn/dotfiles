@@ -1,0 +1,8 @@
+#hardstatus alwayslastline
+#hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%Y-%m-%d %{W}%c %{g}]'
+
+
+defutf8 on
+defscrollback 10240
+setenv SSH_AUTH_SOCK /tmp/.ssh-sjn-agent-sock-screen
+
