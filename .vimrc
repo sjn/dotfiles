@@ -88,6 +88,26 @@ autocmd FileType perl set showmatch
 "autocmd FileType perl let perl_fold=1
 "autocmd FileType perl let perl_fold_blocks=1
 autocmd FileType perl :set equalprg=perltidy
+autocmd FileType perl NERDTreeTabsToggle
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd FileType perl map <Leader>n <plug>NERDTreeTabsToggle<CR>
+let g:nerdtree_tabs_open_on_console_startup=1
+
+
+
+if exists('+colorcolumn')
+  set colorcolumn=78
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+endif
+highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
+match OverLength /\>%79v.\+/
+
+
+
+
+"""" Mouse stuff
+:set mouse=a
 
 
 
@@ -121,7 +141,8 @@ let perl_sync_dist     = 250 "use more context for highlighting"
 """" Load pathogen
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
-syntax on
+"syntax on
+"syntax reset
 filetype plugin indent on
 
 """" supertab

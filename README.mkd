@@ -3,8 +3,11 @@
 These are personal, work-in-progress and probably a bit off. Feel free
 to browse and use anything you want! :)
 
-# Installing bundles
+# Installing stuff
 
+git clone git@github.com/sjn/dotfiles.git .dotfiles
+
+cd .dotfiles
 git submodule init
 git submodule update
 
