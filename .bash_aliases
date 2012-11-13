@@ -110,8 +110,8 @@ function pull-dotfiles-from () {
     return 1
   else
     echo "Backing up before pull";
-    mkdir -p $HOME/.dotfile-backup;
-    eval '( cd $HOME; ls -1d .{'$dotfiles'} 2>&- ) | xargs tar cf $HOME/.dotfile-backup/$(date +dotfiles-%Y-%m-%dT%H%M%S.tgz)';
+    mkdir -p $HOME/.dotfiles-backup;
+    eval '( cd $HOME; ls -1d .{'$dotfiles'} 2>&- ) | xargs tar cf $HOME/.dotfiles-backup/$(date +dotfiles-%Y-%m-%dT%H%M%S.tgz)';
     echo "Pulling"
     cd $HOME;
     ssh $2 $1 'eval "cd $HOME; ls -1d .{'$dotfiles'} 2>&- | xargs tar cf -"' | tar xf -;
@@ -125,7 +125,7 @@ function push-dotfiles-to () {
     return 1
   else
     echo "Backing up before push";
-    ssh $1 'mkdir -p $HOME/.dotfile-backup; ( cd $HOME; ls -1d .{'$dotfiles'} 2>&- ) | xargs tar cf $HOME/.dotfile-backup/$(date +dotfiles-%Y-%m-%dT%H%M%S.tgz)';
+    ssh $1 'mkdir -p $HOME/.dotfiles-backup; ( cd $HOME; ls -1d .{'$dotfiles'} 2>&- ) | xargs tar cf $HOME/.dotfiles-backup/$(date +dotfiles-%Y-%m-%dT%H%M%S.tgz)';
     echo "Pushing"
     eval "cd $HOME; ls -1d .{$dotfiles} 2>&-" | xargs tar cf - | ssh $2 $1 tar xf -;
     echo "Done."
