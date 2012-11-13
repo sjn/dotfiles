@@ -81,9 +81,15 @@ autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 autocmd FileType perl set autoindent|set smartindent
 autocmd FileType perl set tabstop=4|set shiftwidth=4|set expandtab|set softtabstop=4
-
 autocmd FileType perl set number
 autocmd FileType perl set showmatch
+"autocmd FileType perl colorscheme less
+"autocmd FileType perl set foldmethod=indent
+"autocmd FileType perl let perl_fold=1
+"autocmd FileType perl let perl_fold_blocks=1
+autocmd FileType perl :set equalprg=perltidy
+
+
 
 " make tab in v mode ident code
 vmap <tab> >gv
@@ -134,10 +140,14 @@ set background=dark
 set bg=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-let g:solarized_contrast="normal"
+let g:solarized_contrast="high"
 let g:solarized_visibility="high"
+let g:solarized_degrade=0
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_italic=1
 colorscheme solarized
+
 
 """" delimitmate
 let delimitMate_autoclose = 1
-
