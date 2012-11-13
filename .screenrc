@@ -3,6 +3,8 @@
 
 
 defutf8 on
+utf8 on
 defscrollback 10240
-setenv SSH_AUTH_SOCK /tmp/.ssh-sjn-agent-sock-screen
 
+setenv SSH_AUTH_SOCK ${HOME}/.screen-ssh-agent
+#screen 10 ssh-agent -a $SSH_AUTH_SOCK $SHELL
