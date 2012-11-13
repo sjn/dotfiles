@@ -48,4 +48,10 @@ else
     done
     echo "No SSH agent found."
 fi
+export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
+
+# RMM: Generated with local::lib
+export MY_PERL_VERSION=$(perl -e 'print $]')
+eval $(perl -I$HOME/perl${MY_PERL_VERSION}/lib/perl5 -Mlocal::lib=$HOME/perl${MY_PERL_VERSION})
+umask 022
 
