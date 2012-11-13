@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/pathogen"]
 	path = .vim/bundle/pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "git:/github.com/vim-scripts/unimpaired.vim.git"]
+	path = git:/github.com/vim-scripts/unimpaired.vim.git
+	url = ./.vim/bundle/unimpaired

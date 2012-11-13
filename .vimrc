@@ -79,6 +79,12 @@ cnoremap <ESC><BS> <C-W>
 autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
+autocmd FileType perl set autoindent|set smartindent
+autocmd FileType perl set tabstop=4|set shiftwidth=4|set expandtab|set softtabstop=4
+
+autocmd FileType perl set number
+autocmd FileType perl set showmatch
+
 " make tab in v mode ident code
 vmap <tab> >gv
 vmap <s-tab> <gv
@@ -101,7 +107,9 @@ vnoremap <silent> _t :!perltidy -q<Enter>
 " Deparse obfuscated code
 nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
 vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
-
+let perl_include_pod   = 1   "include pod.vim syntax file with perl.vim"
+let perl_extended_vars = 1   "highlight complex expressions such as @{[$x, $y]}"
+let perl_sync_dist     = 250 "use more context for highlighting"
 
 
 """" Load pathogen
@@ -123,10 +131,13 @@ nnoremap <leader>l :TagbarToggle<CR>
 
 """" solarized
 set background=dark
+set bg=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="normal"
 let g:solarized_visibility="high"
 colorscheme solarized
 
+"""" delimitmate
+let delimitMate_autoclose = 1
 
