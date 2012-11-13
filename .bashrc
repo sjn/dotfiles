@@ -9,7 +9,7 @@
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignoreboth
+#HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -84,11 +84,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -117,9 +112,6 @@ if [ "$PS1" ]; then
     #export CDPATH
 
     # some more ls aliases
-    alias ll='ls -l'
-    alias la='ls -A'
-    alias l='ls -CF'
     alias m='less -MQr'
 
     # set a fancy prompt
@@ -129,9 +121,10 @@ if [ "$PS1" ]; then
     # If this is an xterm set the title to user@host:dir
     case $TERM in
     xterm*)
-    TTY=`tty`
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"'
-    TERM='xterm-256color'
+        TTY=`tty`
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"'
+        #TERM='xterm-color'
+        TERM='xterm-256color'
         ;;
     *)
         ;;
@@ -158,13 +151,14 @@ if [ -d $HOME/perl5/lib/perl5 ]; then
 
 fi
 
-if [ -d $HOME/perl5/perlbrew/etc/bashrc ]; then
+if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 
    source $HOME/perl5/perlbrew/etc/bashrc
 
 fi
 
-export PERL_CPANM_OPT="--mirror file:///var/store/CPAN/"
+if [ -d /var/store/CPAN ]; then
+    export PERL_CPANM_OPT="--mirror file:///var/store/CPAN/"
+fi
 
 test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent" || echo "Could not update .screen-ssh-agent"
-
