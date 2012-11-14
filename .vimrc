@@ -81,9 +81,35 @@ autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set autowrite
 autocmd FileType perl set autoindent|set smartindent
 autocmd FileType perl set tabstop=4|set shiftwidth=4|set expandtab|set softtabstop=4
-
 autocmd FileType perl set number
 autocmd FileType perl set showmatch
+"autocmd FileType perl colorscheme less
+"autocmd FileType perl set foldmethod=indent
+"autocmd FileType perl let perl_fold=1
+"autocmd FileType perl let perl_fold_blocks=1
+autocmd FileType perl :set equalprg=perltidy
+autocmd FileType perl NERDTreeTabsToggle
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd FileType perl map <Leader>n <plug>NERDTreeTabsToggle<CR>
+let g:nerdtree_tabs_open_on_console_startup=1
+
+
+
+if exists('+colorcolumn')
+  set colorcolumn=78
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+endif
+highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
+match OverLength /\>%79v.\+/
+
+
+
+
+"""" Mouse stuff
+:set mouse=a
+
+
 
 " make tab in v mode ident code
 vmap <tab> >gv
@@ -115,7 +141,8 @@ let perl_sync_dist     = 250 "use more context for highlighting"
 """" Load pathogen
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
-syntax on
+"syntax on
+"syntax reset
 filetype plugin indent on
 
 """" supertab
@@ -134,10 +161,14 @@ set background=dark
 set bg=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-let g:solarized_contrast="normal"
+let g:solarized_contrast="high"
 let g:solarized_visibility="high"
+let g:solarized_degrade=0
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_italic=1
 colorscheme solarized
+
 
 """" delimitmate
 let delimitMate_autoclose = 1
-

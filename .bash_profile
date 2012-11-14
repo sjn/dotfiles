@@ -3,7 +3,7 @@
 # the files are located in the bash-doc package.
 
 umask 022
- 
+
 # include .bashrc if it exists
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
@@ -13,7 +13,7 @@ fi
 if [ -d ~/bin ] ; then
     PATH=~/bin:"${PATH}"
 fi
- 
+
 # do the same with MANPATH
 if [ -d ~/man ]; then
     MANPATH=~/man:"${MANPATH}"
