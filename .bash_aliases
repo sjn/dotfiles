@@ -68,7 +68,7 @@ alias cls='echo -n \e[0r\e[0m\e[H\e[J'
 #
 
 alias rm='rm -i'
-alias m='less -MQR'
+alias m='less -MQr'
 
 
 #
