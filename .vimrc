@@ -1,21 +1,20 @@
 """" Basic settings
 """" Vroom
-set exrc
 
-set paste
-set tabstop=4
-set expandtab
 set copyindent
-set preserveindent
-set softtabstop=0
-set shiftwidth=4
-set smartindent
-set nocursorline
+set expandtab
+set exrc
 set nocursorcolumn
-
-set whichwrap=<,>,h,l,[,]
+set nocursorline
+set paste
+set preserveindent
+set shiftwidth=4
+set showcmd
+set smartindent
+set softtabstop=0
+set tabstop=4
 set textwidth=76
-
+set whichwrap=<,>,h,l,[,]
 
 """" Turn on display of certain invisible characters
 set list!
@@ -74,41 +73,41 @@ cnoremap <ESC>f <S-Right>
 cnoremap <ESC><BS> <C-W>
 
 
+
+
 """" Perl stuff
 " check perl code with :make
-autocmd FileType perl set makeprg=perl\ -c\ %\ $*
-autocmd FileType perl set errorformat=%f:%l:%m
+autocmd FileType perl set autoindent
 autocmd FileType perl set autowrite
-autocmd FileType perl set autoindent|set smartindent
-autocmd FileType perl set tabstop=4|set shiftwidth=4|set expandtab|set softtabstop=4
+autocmd FileType perl set equalprg=perltidy
+autocmd FileType perl set errorformat=%f:%l:%m
+autocmd FileType perl set expandtab
+autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set number
+autocmd FileType perl set shiftwidth=4
 autocmd FileType perl set showmatch
-"autocmd FileType perl colorscheme less
-"autocmd FileType perl set foldmethod=indent
-"autocmd FileType perl let perl_fold=1
-"autocmd FileType perl let perl_fold_blocks=1
-autocmd FileType perl :set equalprg=perltidy
+autocmd FileType perl set smartindent
+autocmd FileType perl set softtabstop=0
+"autocmd FileType perl set softtabstop=4
+autocmd FileType perl set tabstop=4
 autocmd FileType perl NERDTreeTabsToggle
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-autocmd FileType perl map <Leader>n <plug>NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup=1
+autocmd FileType perl let g:nerdtree_tabs_open_on_console_startup=1
+map <F2> <plug>NERDTreeTabsToggle<CR>
 
 
+highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
+match OverLength /\>%79v.\+/
 
 if exists('+colorcolumn')
   set colorcolumn=78
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 endif
-highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
-match OverLength /\>%79v.\+/
-
-
 
 
 """" Mouse stuff
 :set mouse=a
-
 
 
 " make tab in v mode ident code
@@ -119,7 +118,7 @@ nmap <tab> I<tab><esc>
 nmap <s-tab> ^i<bs><esc>
 " paste mode - this will avoid unexpected effects when you
 " cut or copy some text from one window and paste it in Vim.
-set pastetoggle=<F11>
+set pastetoggle=<F9>
 " comment/uncomment blocks of code (in vmode)
 vmap _c :s/^/#/gi<Enter>
 vmap _C :s/^#//gi<Enter>
@@ -141,8 +140,6 @@ let perl_sync_dist     = 250 "use more context for highlighting"
 """" Load pathogen
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
-"syntax on
-"syntax reset
 filetype plugin indent on
 
 """" supertab
@@ -154,7 +151,7 @@ autocmd FileType html,xhtml,xml,ep,tt2 source ~/.vim/bundle/closetag/plugin/clos
 
 """" tagbar
 let g:tagbar_usearrows = 1
-nnoremap <leader>l :TagbarToggle<CR>
+nnoremap <F3> :TagbarToggle<CR>
 
 """" solarized
 set background=dark
@@ -172,3 +169,4 @@ colorscheme solarized
 
 """" delimitmate
 let delimitMate_autoclose = 1
+
