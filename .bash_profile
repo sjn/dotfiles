@@ -26,6 +26,9 @@ fi
 if [ -d /usr/sbin ]; then
     PATH="${PATH}":/usr/sbin
 fi
+if [ -d /sbin ]; then
+    PATH="${PATH}":/sbin
+fi
 
 # Jump through screen(1) + ssh(1) hoops
 if [ ! -z "$SSH_AUTH_SOCK" ]; then
