@@ -83,16 +83,11 @@ autocmd FileType perl set autoindent|set smartindent
 autocmd FileType perl set tabstop=4|set shiftwidth=4|set expandtab|set softtabstop=4
 autocmd FileType perl set number
 autocmd FileType perl set showmatch
-"autocmd FileType perl colorscheme less
-"autocmd FileType perl set foldmethod=indent
-"autocmd FileType perl let perl_fold=1
-"autocmd FileType perl let perl_fold_blocks=1
 autocmd FileType perl :set equalprg=perltidy
 autocmd FileType perl NERDTreeTabsToggle
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd FileType perl map <Leader>n <plug>NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup=1
-
 
 
 if exists('+colorcolumn')
@@ -102,8 +97,6 @@ else
 endif
 highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
 match OverLength /\>%79v.\+/
-
-
 
 
 """" Mouse stuff
@@ -161,9 +154,9 @@ set background=dark
 set bg=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
-let g:solarized_degrade=0
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+let g:solarized_degrade=1
 let g:solarized_bold=1
 let g:solarized_underline=1
 let g:solarized_italic=1
