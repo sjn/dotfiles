@@ -52,6 +52,6 @@ export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
 
 # RMM: Generated with local::lib
 export MY_PERL_VERSION=$(perl -e 'print $]')
-eval $(perl -I$HOME/perl${MY_PERL_VERSION}/lib/perl5 -Mlocal::lib=$HOME/perl${MY_PERL_VERSION})
+eval $(perl -I$HOME/perl${MY_PERL_VERSION}/lib/perl5 -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl${MY_PERL_VERSION})
 umask 022
 
