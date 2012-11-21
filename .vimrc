@@ -90,7 +90,6 @@ autocmd FileType perl set smartindent
 autocmd FileType perl set softtabstop=0
 "autocmd FileType perl set softtabstop=4
 autocmd FileType perl set tabstop=4
-autocmd FileType perl NERDTreeTabsToggle
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd FileType perl let g:nerdtree_tabs_open_on_console_startup=1
 map <F2> <plug>NERDTreeTabsToggle<CR>
