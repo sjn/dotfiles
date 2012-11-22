@@ -124,7 +124,7 @@ if [ "$PS1" ]; then
         TTY=`tty`
         PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"'
         #TERM='xterm-color'
-        TERM='xterm-256color'
+        #TERM='xterm-256color'
         ;;
     *)
         ;;
