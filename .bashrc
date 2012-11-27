@@ -158,11 +158,11 @@ if [ -d $HOME/perl5/lib/perl5 ]; then
 
 fi
 
-if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
-
-   source $HOME/perl5/perlbrew/etc/bashrc
-
-fi
+#if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
+#
+#   source $HOME/perl5/perlbrew/etc/bashrc
+#
+#fi
 
 if [ -d /var/store/CPAN ]; then
     export PERL_CPANM_OPT="--mirror file:///var/store/CPAN/"
