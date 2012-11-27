@@ -31,11 +31,12 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 fi
 
 # Detect colors
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+if [ -e /usr/share/terminfo/x/xterm-256color -o -e /lib/terminfo/x/xterm-256color ]; then
     export TERM='xterm-256color'
 else
     export TERM='xterm-color'
 fi
+echo "This terminal has $(tput colors) colors"
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
