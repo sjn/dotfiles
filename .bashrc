@@ -193,7 +193,7 @@ if [ "$PS1" ]; then
         ;;
     esac
 
-    if [ -f $HOME/.dotfiles/.git-completion.bash ] && ! shopt -oq posix && which git 2>/dev/null; then
+    if [ -f $HOME/.dotfiles/.git-completion.bash ] && ! shopt -oq posix && which git 2>/dev/null >/dev/null ; then
         . $HOME/.dotfiles/.git-completion.bash
         PS1='${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]$(__git_ps1 " %s")\[\033[0m\] \W \$ '
     else
