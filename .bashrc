@@ -124,19 +124,22 @@ if [ "$PS1" ]; then
 
     # set a fancy prompt
     #PS1='\u@\h:\w\$ '
-    PS1="\t (\u@\h) \W <\$?>"
+    #PS1="\t (\u@\h) \W <\$?>"
 
     # If this is an xterm set the title to user@host:dir
     case $TERM in
     xterm*)
         TTY=`tty`
         PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"'
-        #TERM='xterm-color'
-        #TERM='xterm-256color'
         ;;
     *)
         ;;
     esac
+
+    if [ -f $HOME/.dotfiles/.git-completion.bash ] && ! shopt -oq posix; then
+        . $HOME/.dotfiles/.git-completion.bash
+        PS1='${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\] \W\[\033[1;32m\]$(__git_ps1 " %s")\[\033[0m\] \$ '
+    fi
 
     set show-all-if-ambiguous on
     set bell-style visible
