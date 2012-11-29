@@ -59,6 +59,9 @@ if [ "$TERM" = "xterm" ] ; then
                 ;;
         esac
     fi
+elif [ "$TERM" = "screen" ] ; then
+    # Let's try to use a color terminal by default
+    TERM="screen-256color"
 fi
 
 SCREEN_COLORS="`tput colors`"
