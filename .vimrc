@@ -1,4 +1,32 @@
 """" Basic settings
+
+" Source the vimrc file after saving it
+"if has("autocmd")
+"  autocmd bufwritepost .vimrc source $MYVIMRC
+"endif
+
+"""" Load pathogen
+runtime bundle/pathogen/autoload/pathogen.vim
+call pathogen#infect()
+filetype on
+filetype plugin on
+filetype indent on
+
+"""" Tab navigation
+map <C-S-]> gt
+map <C-S-[> gT
+map <C-1> 1gt
+map <C-2> 2gt
+map <C-3> 3gt
+map <C-4> 4gt
+map <C-5> 5gt
+map <C-6> 6gt
+map <C-7> 7gt
+map <C-8> 8gt
+map <C-9> 9gt
+map <C-0> :tablast<CR>
+
+
 """" Vroom
 
 set copyindent
@@ -136,11 +164,6 @@ let perl_extended_vars = 1   "highlight complex expressions such as @{[$x, $y]}"
 let perl_sync_dist     = 250 "use more context for highlighting"
 
 
-"""" Load pathogen
-runtime bundle/pathogen/autoload/pathogen.vim
-call pathogen#infect()
-filetype plugin indent on
-
 """" supertab
 let g:SuperTabDefaultCompletionType = "context"
 
@@ -157,7 +180,7 @@ set background=dark
 set bg=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-let g:solarized_contrast="normal"
+let g:solarized_contrast="high"
 let g:solarized_visibility="normal"
 let g:solarized_degrade=1
 let g:solarized_bold=1

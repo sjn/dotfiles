@@ -30,6 +30,11 @@ if [ -d /sbin ]; then
     PATH="${PATH}":/sbin
 fi
 
+# perlomni.vim bin path
+if [ -d "${HOME}/.vim/bin" ]; then
+    PATH="${PATH}:${HOME}/.vim/bin"
+fi
+
 # Jump through screen(1) + ssh(1) hoops
 if [ ! -z "$SSH_AUTH_SOCK" ]; then
     if [ "x$SHLVL" = "x1" ]; then # we are a login shell
