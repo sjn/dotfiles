@@ -1,1 +1,4 @@
 .vim/.netrwhist
+.vim/bin/
+.vim/ftplugin/
+.vim/record/perlomni.vim

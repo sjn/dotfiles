@@ -5,7 +5,14 @@
 "  autocmd bufwritepost .vimrc source $MYVIMRC
 "endif
 
-" Tab navigation
+"""" Load pathogen
+runtime bundle/pathogen/autoload/pathogen.vim
+call pathogen#infect()
+filetype on
+filetype plugin on
+filetype indent on
+
+"""" Tab navigation
 map <C-S-]> gt
 map <C-S-[> gT
 map <C-1> 1gt
@@ -156,11 +163,6 @@ let perl_include_pod   = 1   "include pod.vim syntax file with perl.vim"
 let perl_extended_vars = 1   "highlight complex expressions such as @{[$x, $y]}"
 let perl_sync_dist     = 250 "use more context for highlighting"
 
-
-"""" Load pathogen
-runtime bundle/pathogen/autoload/pathogen.vim
-call pathogen#infect()
-filetype plugin indent on
 
 """" supertab
 let g:SuperTabDefaultCompletionType = "context"
