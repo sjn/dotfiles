@@ -1,4 +1,25 @@
 """" Basic settings
+
+" Source the vimrc file after saving it
+"if has("autocmd")
+"  autocmd bufwritepost .vimrc source $MYVIMRC
+"endif
+
+" Tab navigation
+map <C-S-]> gt
+map <C-S-[> gT
+map <C-1> 1gt
+map <C-2> 2gt
+map <C-3> 3gt
+map <C-4> 4gt
+map <C-5> 5gt
+map <C-6> 6gt
+map <C-7> 7gt
+map <C-8> 8gt
+map <C-9> 9gt
+map <C-0> :tablast<CR>
+
+
 """" Vroom
 
 set copyindent
@@ -157,7 +178,7 @@ set background=dark
 set bg=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
-let g:solarized_contrast="normal"
+let g:solarized_contrast="high"
 let g:solarized_visibility="normal"
 let g:solarized_degrade=1
 let g:solarized_bold=1
