@@ -16,10 +16,10 @@
   whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
   add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-  lg = log -p
-  who = shortlog -s --
-  lgp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lg   = log -p
+  who  = shortlog -s --
+  lolr = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lol  = log --graph --decorate --pretty=oneline --abbrev-commit
   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 
 # http://www.youtube.com/watch?v=Z2ZL14WWEJI
