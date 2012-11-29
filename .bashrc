@@ -60,6 +60,9 @@ if [ "$TERM" = "xterm" ] ; then
                 ;;
         esac
     fi
+elif [ "$TERM" = "screen" ] ; then
+    # Let's try to use a color terminal by default
+    TERM="screen-256color"
 fi
 
 SCREEN_COLORS="`tput colors`"
@@ -230,4 +233,4 @@ if [ -d /var/store/CPAN ]; then
     export PERL_CPANM_OPT="--mirror file:///var/store/CPAN/"
 fi
 
-test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent" || echo "Could not update .screen-ssh-agent"
+test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent" || ssh-recover-agent || echo "Could not update .screen-ssh-agent"

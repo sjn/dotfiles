@@ -122,6 +122,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 autocmd FileType perl let g:nerdtree_tabs_open_on_console_startup=1
 map <F2> <plug>NERDTreeTabsToggle<CR>
 
+"""" perlomni key-combo is annoying when using screen -e ^Oo
+"autocmd FileType perl nnoremap <C-x><C-o> <C-x>-
+
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
 match OverLength /\>%79v.\+/

@@ -31,8 +31,8 @@ if [ -d /sbin ]; then
 fi
 
 # perlomni.vim bin path
-if [ -d "${HOME}/.vim/bin" ]; then
-    PATH="${PATH}:${HOME}/.vim/bin"
+if [ -d "${HOME}/.vim/bundle/perlomni/bin" ]; then
+    PATH="${PATH}:${HOME}/.vim/bundle/perlomni/bin"
 fi
 
 # Jump through screen(1) + ssh(1) hoops
