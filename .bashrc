@@ -219,11 +219,11 @@ if [ "$PS1" ]; then
 
 fi
 
-if [ -d $HOME/perl5/lib/perl5 ]; then
-
-   eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
-
-fi
+#if [ -d $HOME/perl5/lib/perl5 ]; then
+#
+#   eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+#
+#fi
 
 #if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 #
