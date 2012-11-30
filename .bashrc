@@ -180,9 +180,7 @@ fi
 if [ "$PS1" ]; then
 
     # don't put duplicate lines in the history. See bash(1) for more options
-    #CDPATH='.:~:/usr'
     export FIGNORE='~'
-    #export CDPATH
 
     # some more ls aliases
     alias m='less -MQr'
