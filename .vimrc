@@ -43,6 +43,7 @@ set softtabstop=0
 set tabstop=4
 set textwidth=76
 set whichwrap=<,>,h,l,[,]
+set modeline
 
 """" Turn on display of certain invisible characters
 set list!
@@ -132,8 +133,16 @@ match OverLength /\>%79v.\+/
 if exists('+colorcolumn')
   set colorcolumn=78
 else
-  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
 endif
+
+
+"""" Treat *.conf files as Apache config files
+autocmd BufNewFile,BufRead *.conf set filetype=apache
+autocmd BufNewFile,BufRead *.tpl set filetype=tt2
+autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
+autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
+
 
 
 """" Mouse stuff
@@ -172,11 +181,14 @@ let g:SuperTabDefaultCompletionType = "context"
 
 """" closetag
 autocmd FileType html,ep,tt2 let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,ep,tt2 source ~/.vim/bundle/closetag/plugin/closetag.vim
+autocmd FileType html,xhtml,xml,conf,ep,tt2 source ~/.vim/bundle/closetag/plugin/closetag.vim
 
 """" tagbar
 let g:tagbar_usearrows = 1
 nnoremap <F3> :TagbarToggle<CR>
+
+set tags=./tags,../tags
+
 
 """" solarized
 set background=dark
