@@ -29,3 +29,6 @@
   interactive = auto
   status = auto
   ui = true
+[core]
+	autocrlf = input
+	safecrlf = true
