@@ -131,9 +131,9 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
 match OverLength /\>%79v.\+/
 
 if exists('+colorcolumn')
-  set colorcolumn=78
+  set colorcolumn=76
 else
-  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>77v.\+', -1)
 endif
 
 
