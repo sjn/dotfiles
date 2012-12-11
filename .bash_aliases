@@ -30,7 +30,7 @@ alias ssh-recover-agent='export SSH_AUTH_SOCK=$(for SSH_AUTH_SOCK in $(find /tmp
 #
 # Debian/Ubuntu tools
 #
-alias deb-list-edited-config-files="dpkg-query -W -f='\${Conffiles}\n' '*' | awk 'OFS=\"  \"{print \$2,\$1}' | LANG=C md5sum -c 2>/dev/null | awk -F': ' '\$2 !~ /OK/{print \$1}' | sort | less"
+alias deb-list-edited-config-files="dpkg-query -W -f='\${Conffiles}\n' '*' | awk 'OFS=\"  \"{print \$2,\$1}' | LANG=C md5sum -c 2>/dev/null | awk -F': ' '\$2 !~ /OK/{print \$1}' | sort"
 
 
 #
