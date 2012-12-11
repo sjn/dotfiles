@@ -2,6 +2,57 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+echo "in .bashrc" 1>&2
+
+# set PATH so it includes user's private bin if it exists
+if [ -d ~/bin ] ; then
+    PATH=~/bin:"${PATH}"
+fi
+
+# do the same with MANPATH
+if [ -d ~/man ]; then
+    MANPATH=~/man:"${MANPATH}"
+fi
+
+# add sbin dirs
+if [ -d /usr/local/sbin ]; then
+    PATH="${PATH}":/usr/local/sbin
+fi
+if [ -d /usr/sbin ]; then
+    PATH="${PATH}":/usr/sbin
+fi
+if [ -d /sbin ]; then
+    PATH="${PATH}":/sbin
+fi
+
+# perlomni.vim bin path
+if [ -d "${HOME}/.vim/bundle/perlomni/bin" ]; then
+    PATH="${PATH}:${HOME}/.vim/bundle/perlomni/bin"
+fi
+
+# Jump through screen(1) + ssh(1) hoops
+if [ ! -z "$SSH_AUTH_SOCK" ]; then
+    if [ "x$SHLVL" = "x1" ]; then # we are a login shell
+        echo "screen+ssh socket link: '$SSH_AUTH_SOCK'"
+        rm -f "/tmp/.ssh-$USER-agent-sock-screen"
+        ln -fs "$SSH_AUTH_SOCK" "/tmp/.ssh-$USER-agent-sock-screen"
+        ssh-add -l
+    fi
+else
+    for agent in /tmp/ssh-*/agent.*; do
+        export SSH_AUTH_SOCK=$agent
+        if ssh-add -l 2>&1 > /dev/null; then
+            echo "Found working SSH Agent:"
+            ln -fs "$SSH_AUTH_SOCK" "/tmp/.ssh-$USER-agent-sock-screen"
+            export SSH_AUTH_SOCK="/tmp/.ssh-$USER-agent-sock-screen"
+            ssh-add -l
+            return
+        fi
+    done
+    echo "No SSH agent found."
+fi
+
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
@@ -217,11 +268,11 @@ if [ "$PS1" ]; then
 
 fi
 
-#if [ -d $HOME/perl5/lib/perl5 ]; then
-#
-#   eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
-#
-#fi
+if [ -d $HOME/perl5/lib/perl5 ]; then
+
+   eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+
+fi
 
 #if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 #
@@ -231,6 +282,10 @@ fi
 
 if [ -d /var/store/CPAN ]; then
     export PERL_CPANM_OPT="--mirror file:///var/store/CPAN/"
+fi
+
+if [ -f $HOME/src/runbox/conf/home/development/.perltidyrc ]; then
+    export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
 fi
 
 test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent" || echo "Could not update .screen-ssh-agent"
