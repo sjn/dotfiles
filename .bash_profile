@@ -2,8 +2,6 @@
 # see /usr/share/doc/bash/examples/startup-files for examples.
 # the files are located in the bash-doc package.
 
-echo "in .bash_profile" 1>&2
-
 # include .bashrc if it exists
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
