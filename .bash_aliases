@@ -27,6 +27,11 @@ alias hagbart.nvg-s='ssh -2 -4 -C -t -A -l sjn hagbart.nvg.ntnu.no screen -Ux'
 alias nuug.no='ssh -2 -4 -C -t -A -l sjn nerdhaven.nuug.no'
 alias ssh-recover-agent='export SSH_AUTH_SOCK=$(for SSH_AUTH_SOCK in $(find /tmp -user `whoami` -name agent\* 2>&- ); do ssh-add -l 1>&2 && echo "$SSH_AUTH_SOCK" && break; done;); ssh-add -l | grep -q "no identities" || ssh-add; test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"'
 
+#
+# Debian/Ubuntu tools
+#
+alias deb-list-edited-config-files="dpkg-query -W -f='\${Conffiles}\n' '*' | awk 'OFS=\"  \"{print \$2,\$1}' | LANG=C md5sum -c 2>/dev/null | awk -F': ' '\$2 !~ /OK/{print \$1}' | sort | less"
+
 
 #
 # Shell-kommandoer
