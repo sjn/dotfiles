@@ -25,7 +25,7 @@ alias hagbart.nvg='ssh -2 -4 -C -t -A -l sjn hagbart.nvg.ntnu.no'
 alias decibel.pvv='ssh -2 -4 -C -t -A -l sjn decibel.pvv.ntnu.no'
 alias hagbart.nvg-s='ssh -2 -4 -C -t -A -l sjn hagbart.nvg.ntnu.no screen -Ux'
 alias nuug.no='ssh -2 -4 -C -t -A -l sjn nerdhaven.nuug.no'
-alias ssh-recover-agent='export SSH_AUTH_SOCK=$(for SSH_AUTH_SOCK in $(find /tmp -user `whoami` -name agent\* 2>&- ); do ssh-add -l 1>&2 && echo "$SSH_AUTH_SOCK" && break; done;); ssh-add -l | grep -q "no identities" || ssh-add; test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"'
+alias ssh-recover-agent='test ! -z "$SSH_AUTH_SOCK" && test -S "$SSH_AUTH_SOCK" && ssh-add -l || export SSH_AUTH_SOCK=$(for SSH_AUTH_SOCK in $(find /tmp -user `whoami` -name agent\* 2>&- ); do ssh-add -l 1>&2 && echo "$SSH_AUTH_SOCK" && break; done;); test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"'
 
 #
 # Debian/Ubuntu tools
