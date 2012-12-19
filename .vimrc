@@ -82,7 +82,7 @@ if has('multi_byte') " If multibyte support is available and
 endif
 
 
-"""" Display
+"""" When on an UTF-8 display, use fancyer characters
 if &enc =~ '^u\(tf\|cs\)' " When running in a Unicode environment,
   set list " visually represent certain invisible characters:
   let s:arr = nr2char(9655) " using U+25B7 (▷) for an arrow, and
@@ -101,8 +101,9 @@ cnoremap <ESC>b <S-Left>
 cnoremap <ESC>f <S-Right>
 cnoremap <ESC><BS> <C-W>
 
-
-
+"""" Makefile stuff
+autocmd FileType make setlocal listchars+=tab:\ \ 
+autocmd FileType make setlocal noexpandtab
 
 """" Perl stuff
 " check perl code with :make
@@ -206,4 +207,14 @@ colorscheme solarized
 
 """" delimitmate
 let delimitMate_autoclose = 1
+
+"""" Status bar
+set laststatus=2 " always show the status bar
+
+" Start the status line
+set statusline=%f\ %m\ %r
+set statusline+=Line:%l/%L\ [%p%%]
+set statusline+=\ Col:%v
+set statusline+=\ Buf:#%n
+set statusline+=\ [%b][0x%B]
 
