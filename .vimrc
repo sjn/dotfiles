@@ -1,9 +1,6 @@
-"""" Basic settings
 
-" Source the vimrc file after saving it
-"if has("autocmd")
-"  autocmd bufwritepost .vimrc source $MYVIMRC
-"endif
+"""" Only do stuff if we have a recent version of vim
+if version >= 700
 
 """" Load pathogen
 runtime bundle/pathogen/autoload/pathogen.vim
@@ -27,23 +24,26 @@ map <C-9> 9gt
 map <C-0> :tablast<CR>
 
 
-"""" Vroom
-
+"""" Basic settings
 set copyindent
 set expandtab
-set exrc
+set exrc  "for Vroom::Vroom"
+set modeline
 set nocursorcolumn
-set nocursorline
+set cursorline
 set paste
 set preserveindent
+"set shiftwidth=2
 set shiftwidth=4
 set showcmd
 set smartindent
 set softtabstop=0
+"set tabstop=2
 set tabstop=4
 set textwidth=76
-set whichwrap=<,>,h,l,[,]
-set modeline
+"set whichwrap=<,>,h,l,[,]
+set ww=<,>,[,],h,l,b,s,~
+
 
 """" Turn on display of certain invisible characters
 set list!
@@ -52,15 +52,23 @@ set listchars=trail:.,nbsp:%
 """"" Titlebar
 set title " Turn on titlebar support
 
-
 """" Searching and Patterns
 set ignorecase " Default to using case insensitive searches,
 set smartcase " unless uppercase letters are used in the regex.
+set infercase " Handle case in a smart way in autocompletes
 set hlsearch " Highlight searches by default.
 set incsearch " Incrementally search while typing a /regex
+set showfulltag " Show full tag completions
+set complete=.,w,b,u,U,i,d,k,t " Better completion, full tags last
 
-"""" Have 3 lines of offset (or buffer) when scrolling
-set scrolloff=3
+"""" Suffixes that get lower priority when doing tab completion for
+"""" filenames. These are files we are not likely to want to edit or read.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,CVS/,tags
+
+"""" Status line
+set statusline=%<%f\ %y[%{&ff}]%m%r%w%a\ %=%l/%L,%c%V\ %P
+
+
 
 """" Moving Around/Editing
 set nostartofline " Avoid moving cursor to BOL when jumping around
@@ -70,6 +78,49 @@ set scrolloff=3 " Keep 3 context lines above and below the cursor
 set backspace=2 " Allow backspacing over autoindent, EOL, and BOL
 set showmatch " Briefly jump to a paren once it's balanced
 set matchtime=2 " (for only .2 seconds).
+set ss=1
+set siso=9
+
+"""" Cursor keys use screen lines
+map <up> gk
+imap <up> <c-o>gk
+map <down> gj
+imap <down> <c-o>gj
+
+"""" Easy wrap, line numbers & list mode toggle
+map <F4> :setlocal wrap!<CR>
+imap <F4> <c-o>:setlocal wrap!<CR>
+map <F5> :setlocal list!<CR>
+imap <F5> <c-o>:setlocal list!<CR>
+map <F6> :setlocal nu!<CR>
+imap <F6> <c-o>:setlocal nu!<CR>
+map <F1> :b #<CR>
+imap <F1> <c-o>:b #<CR>
+
+"""" Use * and # in visual mode
+vmap <silent> * :<C-U>let old_reg=@"<cr>gvy/<C-R>"<cr>:let @"=old_reg<cr><C-L>
+vmap <silent> # :<C-U>let old_reg=@"<cr>gvy?<C-R>"<cr>:let @"=old_reg<cr><C-L>
+
+"""" Wildmenu
+set wildmenu              " Wild menu!
+set wildmode=longest,full " First match the longest common string, then full
+
+"""" Status bar
+set laststatus=2 " Always show status bar
+
+"""" Mouse, Keyboard, Terminal
+set mouse=a         " Allow mouse use in normal and visual mode.
+set ttymouse=xterm2 " Most terminals send modern xterm mouse reporting
+                    " but this isn't always detected in GNU Screen.
+set timeoutlen=2000 " Wait 2 seconds before timing out a mapping
+set ttimeoutlen=100 " and only 100 ms before timing out on a keypress.
+set lazyredraw      " Avoid redrawing the screen mid-command.
+set ttyscroll=3     " Prefer redraw to scrolling for more than 3 lines
+
+
+""""" Titlebar
+set title " Turn on titlebar support
+
 
 """"" Encoding/Multibyte
 if has('multi_byte') " If multibyte support is available and
@@ -132,9 +183,9 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
 match OverLength /\>%79v.\+/
 
 if exists('+colorcolumn')
-  set colorcolumn=78
+  set colorcolumn=76
 else
-  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>79v.\+', -1)
+  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>77v.\+', -1)
 endif
 
 
@@ -143,11 +194,6 @@ autocmd BufNewFile,BufRead *.conf set filetype=apache
 autocmd BufNewFile,BufRead *.tpl set filetype=tt2
 autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
 autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
-
-
-
-"""" Mouse stuff
-:set mouse=a
 
 
 " make tab in v mode ident code
@@ -172,9 +218,9 @@ vnoremap <silent> _t :!perltidy -q<Enter>
 " Deparse obfuscated code
 nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
 vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
-let perl_include_pod   = 1   "include pod.vim syntax file with perl.vim"
-let perl_extended_vars = 1   "highlight complex expressions such as @{[$x, $y]}"
-let perl_sync_dist     = 250 "use more context for highlighting"
+let perl_include_pod = 1 "include pod.vim syntax file with perl.vim"
+let perl_extended_vars = 1 "highlight complex expressions such as @{[$x, $y]}"
+let perl_sync_dist = 250 "use more context for highlighting"
 
 
 """" supertab
@@ -193,20 +239,18 @@ set tags=./tags,../tags
 
 """" solarized
 set background=dark
-set bg=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="high"
-let g:solarized_visibility="normal"
+let g:solarized_visibility="high"
 let g:solarized_degrade=1
 let g:solarized_bold=1
 let g:solarized_underline=1
 let g:solarized_italic=1
 colorscheme solarized
 
-
 """" delimitmate
-let delimitMate_autoclose = 1
+let delimitMate_autoclose=1
 
 """" Status bar
 set laststatus=2 " always show the status bar
@@ -217,4 +261,15 @@ set statusline+=Line:%l/%L\ [%p%%]
 set statusline+=\ Col:%v
 set statusline+=\ Buf:#%n
 set statusline+=\ [%b][0x%B]
+
+let g:use_zen_complete_tag=1
+
+"""" Vim history
+set history=512     " Set history size
+set viminfo='10,\"100,:20,%,n~/.viminfo
+set showcmd         " Show (partial) command in status line.
+set sm              " Show matching parens
+
+"""" End of vim 7.0 block
+endif
 
