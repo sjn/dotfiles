@@ -30,7 +30,7 @@ set expandtab
 set exrc  "for Vroom::Vroom"
 set modeline
 set nocursorcolumn
-set cursorline
+set nocursorline
 set paste
 set preserveindent
 "set shiftwidth=2
@@ -47,7 +47,7 @@ set ww=<,>,[,],h,l,b,s,~
 
 """" Turn on display of certain invisible characters
 set list!
-set listchars=trail:.,nbsp:%
+set listchars=trail:.,tab:\ \ ,nbsp:%
 
 """"" Titlebar
 set title " Turn on titlebar support
@@ -67,8 +67,6 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 
 """" Status line
 set statusline=%<%f\ %y[%{&ff}]%m%r%w%a\ %=%l/%L,%c%V\ %P
-
-
 
 """" Moving Around/Editing
 set nostartofline " Avoid moving cursor to BOL when jumping around
@@ -124,25 +122,25 @@ set title " Turn on titlebar support
 
 """"" Encoding/Multibyte
 if has('multi_byte') " If multibyte support is available and
-  if &enc !~? 'utf-\=8' " the current encoding is not Unicode,
-    if empty(&tenc) " default to
-      let &tenc = &enc " using the current encoding for terminal output
-    endif " unless another terminal encoding was already set
-    set enc=utf-8 " but use utf-8 for all data internally
-  endif
+    if &enc !~? 'utf-\=8' " the current encoding is not Unicode,
+        if empty(&tenc) " default to
+            let &tenc = &enc " using the current encoding for terminal output
+        endif " unless another terminal encoding was already set
+        set enc=utf-8 " but use utf-8 for all data internally
+    endif
 endif
 
 
 """" When on an UTF-8 display, use fancyer characters
 if &enc =~ '^u\(tf\|cs\)' " When running in a Unicode environment,
-  set list " visually represent certain invisible characters:
-  let s:arr = nr2char(9655) " using U+25B7 (▷) for an arrow, and
-  let s:dot = nr2char(8901) " using U+22C5 (⋅) for a very light dot,
-" display tabs as an arrow followed by some dots (▷⋅⋅⋅⋅⋅⋅⋅),
-  exe "set listchars=tab:" . s:arr . s:dot
-" and display trailing and non-breaking spaces as U+22C5 (⋅).
-  exe "set listchars+=trail:" . s:dot
-  exe "set listchars+=nbsp:" . s:dot
+    set list " visually represent certain invisible characters:
+    let s:arr = nr2char(9655) " using U+25B7 (▷) for an arrow, and
+    let s:dot = nr2char(8901) " using U+22C5 (⋅) for a very light dot,
+    " display tabs as an arrow followed by some dots (▷⋅⋅⋅⋅⋅⋅⋅),
+    exe "set listchars=tab:" . s:arr . s:dot
+    " and display trailing and non-breaking spaces as U+22C5 (⋅).
+    exe "set listchars+=trail:" . s:dot
+    exe "set listchars+=nbsp:" . s:dot
 endif
 
 
@@ -179,13 +177,13 @@ map <F2> <plug>NERDTreeTabsToggle<CR>
 "autocmd FileType perl nnoremap <C-x><C-o> <C-x>-
 
 
-highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
-match OverLength /\>%79v.\+/
+"highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
+"match OverLength /\>%79v.\+/
 
 if exists('+colorcolumn')
-  set colorcolumn=76
+    set colorcolumn=76
 else
-  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>77v.\+', -1)
+    autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>77v.\+', -1)
 endif
 
 
@@ -206,8 +204,8 @@ nmap <s-tab> ^i<bs><esc>
 " cut or copy some text from one window and paste it in Vim.
 set pastetoggle=<F9>
 " comment/uncomment blocks of code (in vmode)
-vmap _c :s/^/#/gi<Enter>
-vmap _C :s/^#//gi<Enter>
+vmap _c :s/^/#/<Enter>
+vmap _C :s/^#//<Enter>
 " my perl includes pod
 let perl_include_pod = 1
 " syntax color complex things like @{${"foo"}}
@@ -251,16 +249,6 @@ colorscheme solarized
 
 """" delimitmate
 let delimitMate_autoclose=1
-
-"""" Status bar
-set laststatus=2 " always show the status bar
-
-" Start the status line
-set statusline=%f\ %m\ %r
-set statusline+=Line:%l/%L\ [%p%%]
-set statusline+=\ Col:%v
-set statusline+=\ Buf:#%n
-set statusline+=\ [%b][0x%B]
 
 let g:use_zen_complete_tag=1
 
