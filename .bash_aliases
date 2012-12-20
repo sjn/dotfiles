@@ -20,10 +20,15 @@ alias base64dec='perl -MMIME::Base64 -e "print decode_base64(join(q(),<>))"'
 #
 # SSH aliases
 #
-alias ping.uio='/usr/bin/ssh -4 -C -g -t -L3128:localhost:3128 -l sjn login.ping.uio.no'
+alias ping.uio='ssh -4 -C -g -t -L3128:localhost:3128 -l sjn login.ping.uio.no'
+alias tyrell.nvg='ssh -2 -4 -C -t -A -l sjn tyrell.nvg.ntnu.no'
+alias tyrell.nvg-s='ssh -2 -4 -C -t -A -l sjn tyrell.nvg.ntnu.no screen -Ux'
+alias sprocket.nvg='ssh -2 -4 -C -t -A -l sjn sprocket.nvg.ntnu.no'
+alias sprocket.nvg-s='ssh -2 -4 -C -t -A -l sjn sprocket.nvg.ntnu.no screen -Ux'
 alias hagbart.nvg='ssh -2 -4 -C -t -A -l sjn hagbart.nvg.ntnu.no'
-alias decibel.pvv='ssh -2 -4 -C -t -A -l sjn decibel.pvv.ntnu.no'
 alias hagbart.nvg-s='ssh -2 -4 -C -t -A -l sjn hagbart.nvg.ntnu.no screen -Ux'
+alias decibel.pvv='ssh -2 -4 -C -t -A -l sjn decibel.pvv.ntnu.no'
+alias microbel.pvv='ssh -2 -4 -C -t -A -l sjn microbel.pvv.ntnu.no'
 alias nuug.no='ssh -2 -4 -C -t -A -l sjn nerdhaven.nuug.no'
 alias ssh-recover-agent='test ! -z "$SSH_AUTH_SOCK" && test -S "$SSH_AUTH_SOCK" && ssh-add -l || export SSH_AUTH_SOCK=$(for SSH_AUTH_SOCK in $(find /tmp -user `whoami` -name agent\* 2>&- ); do ssh-add -l 1>&2 && echo "$SSH_AUTH_SOCK" && break; done;); test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"'
 
@@ -104,7 +109,7 @@ function who {
    /usr/bin/who $@ | sort | more
 }
 
-dotfiles='bashrc,bash_profile,aliases,screenrc,bash_aliases,vimrc,irssi/config'
+dotfiles='bashrc,bash_profile,aliases,screenrc,bash_aliases,vimrc,inputrc,irssi/config'
 
 function pull-dotfiles-from () {
   if [ -z $1 ]; then
