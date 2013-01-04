@@ -35,6 +35,7 @@ set paste
 set preserveindent
 "set shiftwidth=2
 set shiftwidth=4
+set shiftround
 set showcmd
 set smartindent
 set softtabstop=0
@@ -59,7 +60,7 @@ set infercase " Handle case in a smart way in autocompletes
 set hlsearch " Highlight searches by default.
 set incsearch " Incrementally search while typing a /regex
 set showfulltag " Show full tag completions
-set complete=.,w,b,u,U,i,d,k,t " Better completion, full tags last
+set complete=.,w,b,u,U,d,k,t " Better completion, full tags last, no ',i'
 
 """" Suffixes that get lower priority when doing tab completion for
 """" filenames. These are files we are not likely to want to edit or read.
@@ -73,7 +74,7 @@ set nostartofline " Avoid moving cursor to BOL when jumping around
 set whichwrap=b,s,h,l,<,> " <BS> <Space> h l <Left> <Right> can change lines
 set virtualedit=block " Let cursor move past the last char in <C-v> mode
 set scrolloff=3 " Keep 3 context lines above and below the cursor
-set backspace=2 " Allow backspacing over autoindent, EOL, and BOL
+set backspace=indent,eol,start
 set showmatch " Briefly jump to a paren once it's balanced
 set matchtime=2 " (for only .2 seconds).
 set ss=1
@@ -102,6 +103,7 @@ vmap <silent> # :<C-U>let old_reg=@"<cr>gvy?<C-R>"<cr>:let @"=old_reg<cr><C-L>
 """" Wildmenu
 set wildmenu              " Wild menu!
 set wildmode=longest,full " First match the longest common string, then full
+set wildignore=*.bak,*.o,*.e,*~
 
 """" Status bar
 set laststatus=2 " Always show status bar
@@ -153,15 +155,12 @@ cnoremap <ESC><BS> <C-W>
 """" Makefile stuff
 autocmd FileType make setlocal listchars+=tab:\ \ 
 autocmd FileType make setlocal noexpandtab
+"autocmd FileType make
 
 """" Perl stuff
-" check perl code with :make
 autocmd FileType perl set autoindent
-autocmd FileType perl set autowrite
 autocmd FileType perl set equalprg=perltidy
-autocmd FileType perl set errorformat=%f:%l:%m
 autocmd FileType perl set expandtab
-autocmd FileType perl set makeprg=perl\ -c\ %\ $*
 autocmd FileType perl set number
 autocmd FileType perl set shiftwidth=4
 autocmd FileType perl set showmatch
@@ -172,6 +171,10 @@ autocmd FileType perl set tabstop=4
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd FileType perl let g:nerdtree_tabs_open_on_console_startup=1
 map <F2> <plug>NERDTreeTabsToggle<CR>
+" check perl code with :make
+autocmd FileType perl set makeprg=perl\ -c\ %\ $*
+autocmd FileType perl set errorformat=%f:%l:%m
+autocmd FileType perl set autowrite
 
 """" perlomni key-combo is annoying when using screen -e ^Oo
 "autocmd FileType perl nnoremap <C-x><C-o> <C-x>-
@@ -194,12 +197,6 @@ autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
 autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
 
 
-" make tab in v mode ident code
-vmap <tab> >gv
-vmap <s-tab> <gv
-" make tab in normal mode ident code
-nmap <tab> I<tab><esc>
-nmap <s-tab> ^i<bs><esc>
 " paste mode - this will avoid unexpected effects when you
 " cut or copy some text from one window and paste it in Vim.
 set pastetoggle=<F9>
@@ -222,15 +219,18 @@ let perl_sync_dist = 250 "use more context for highlighting"
 
 
 """" supertab
-let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabDefaultCompletionType = "context"
 
 """" closetag
 autocmd FileType html,ep,tt2 let b:closetag_html_style=1
 autocmd FileType html,xhtml,xml,conf,ep,tt2 source ~/.vim/bundle/closetag/plugin/closetag.vim
 
 """" tagbar
-let g:tagbar_usearrows = 1
 nnoremap <F3> :TagbarToggle<CR>
+let g:tagbar_usearrows = 1
+let TE_Ctags_Path = 'exuberant-ctags'
+nnoremap <silent> <F7> :TagExplorer<CR>
+nnoremap <silent> <F8> :Tlist<CR>
 
 set tags=./tags,../tags
 
@@ -257,6 +257,43 @@ set history=512     " Set history size
 set viminfo='10,\"100,:20,%,n~/.viminfo
 set showcmd         " Show (partial) command in status line.
 set sm              " Show matching parens
+set title
+
+
+"""" Tab Wrapper stuff from https://github.com/yanick/environment/blob/master/vim/vimrc
+function InsertTabWrapper()
+   let col = col('.') - 1
+   if !col || getline('.')[col - 1] !~ '\k'
+       return "\<tab>"
+   else
+       return "\<c-p>"
+   endif
+endfunction
+
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" cute ai toggle
+map ,<TAB> :set ai!<CR>:set ai?<CR>
+
+
+" Fast switching between buffers
+" The current buffer will be saved before switching to the next one.
+map  <silent> <s-tab> <Esc>:if &modifiable && !&readonly &&
+     \ &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+imap <silent> <s-tab> <Esc>:if &modifiable && !&readonly &&
+     \ &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+
+
+
+" insert mode : autocomplete brackets and braces
+imap ( ()<Left>
+imap [ []<Left>
+imap { {}<Left>
+
+
+" visual mode : frame a selection with brackets and braces
+vmap ( d<Esc>i(<Esc>p
+vmap [ d<Esc>i[<Esc>p
+vmap { d<Esc>i{<Esc>p
 
 """" End of vim 7.0 block
 endif
