@@ -2,3 +2,4 @@
 .vim/bin/
 .vim/ftplugin/
 .vim/record/perlomni.vim
+*.swp
