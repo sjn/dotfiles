@@ -155,6 +155,7 @@ cnoremap <ESC><BS> <C-W>
 """" Makefile stuff
 autocmd FileType make setlocal listchars+=tab:\ \ 
 autocmd FileType make setlocal noexpandtab
+"autocmd FileType make
 
 """" Perl stuff
 autocmd FileType perl set autoindent
@@ -196,12 +197,6 @@ autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
 autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
 
 
-" make tab in v mode ident code
-vmap <tab> >gv
-vmap <s-tab> <gv
-" make tab in normal mode ident code
-nmap <tab> I<tab><esc>
-nmap <s-tab> ^i<bs><esc>
 " paste mode - this will avoid unexpected effects when you
 " cut or copy some text from one window and paste it in Vim.
 set pastetoggle=<F9>
@@ -224,7 +219,7 @@ let perl_sync_dist = 250 "use more context for highlighting"
 
 
 """" supertab
-let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabDefaultCompletionType = "context"
 
 """" closetag
 autocmd FileType html,ep,tt2 let b:closetag_html_style=1
