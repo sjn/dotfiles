@@ -31,23 +31,23 @@ fi
 # Jump through screen(1) + ssh(1) hoops
 if [ ! -z "$SSH_AUTH_SOCK" ]; then
     if [ "x$SHLVL" = "x1" ]; then # we are a login shell
-        echo "screen+ssh socket link: '$SSH_AUTH_SOCK'" 1>&2
+        #echo "screen+ssh socket link: '$SSH_AUTH_SOCK'" 1>&2
         rm -f "/tmp/.ssh-$USER-agent-sock-screen"
         ln -fs "$SSH_AUTH_SOCK" "/tmp/.ssh-$USER-agent-sock-screen"
-        ssh-add -l 1>&2
+        #ssh-add -l 1>&2
     fi
 else
     for agent in /tmp/ssh-*/agent.*; do
         export SSH_AUTH_SOCK=$agent
         if ssh-add -l 2>&1 > /dev/null; then
-            echo "Found working SSH Agent:" 1>&2
+            #echo "Found working SSH Agent:" 1>&2
             ln -fs "$SSH_AUTH_SOCK" "/tmp/.ssh-$USER-agent-sock-screen"
             export SSH_AUTH_SOCK="/tmp/.ssh-$USER-agent-sock-screen"
-            ssh-add -l 1>&2
+            #ssh-add -l 1>&2
             return
         fi
     done
-    echo "No SSH agent found." 1>&2
+    #echo "No SSH agent found." 1>&2
 fi
 
 
