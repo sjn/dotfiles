@@ -5,18 +5,16 @@ CONF_FILES := .bashrc .bash_profile .bash_aliases \
 	.screenrc .tmux.conf .vimrc .vim .perltidyrc
 
 TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
-SOURCES := $(addprefix $(HOME)/.dotfiles/, $(CONF_FILES))
+
+all: submodules ${TARGETS}
 
 submodules:
 	git submodule init
 	git submodule update
 
-install: ${TARGETS}
-
 ${TARGETS}:
+	test -f $@ && mv -f $@ $@.org || true
 	ln -s .dotfiles/$(notdir $@) $@
 
-all: submodules install
-
-.PHONY: install submodules
+.PHONY: all submodules
 
