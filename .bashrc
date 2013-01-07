@@ -39,7 +39,7 @@ if [ ! -z "$SSH_AUTH_SOCK" ]; then
 else
     for agent in /tmp/ssh-*/agent.*; do
         export SSH_AUTH_SOCK=$agent
-        if ssh-add -l 2>&1 > /dev/null; then
+        if ssh-add -l >/dev/null 2>&1 ; then
             #echo "Found working SSH Agent:" 1>&2
             ln -fs "$SSH_AUTH_SOCK" "/tmp/.ssh-$USER-agent-sock-screen"
             export SSH_AUTH_SOCK="/tmp/.ssh-$USER-agent-sock-screen"
@@ -289,4 +289,4 @@ if [ -f $HOME/src/runbox/conf/home/development/.perltidyrc ]; then
     export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
 fi
 
-test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent" || echo "Could not update .screen-ssh-agent" 1>&2
+test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"
