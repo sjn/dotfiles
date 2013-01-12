@@ -31,23 +31,23 @@ fi
 # Jump through screen(1) + ssh(1) hoops
 if [ ! -z "$SSH_AUTH_SOCK" ]; then
     if [ "x$SHLVL" = "x1" ]; then # we are a login shell
-        echo "screen+ssh socket link: '$SSH_AUTH_SOCK'"
+        #echo "screen+ssh socket link: '$SSH_AUTH_SOCK'" 1>&2
         rm -f "/tmp/.ssh-$USER-agent-sock-screen"
         ln -fs "$SSH_AUTH_SOCK" "/tmp/.ssh-$USER-agent-sock-screen"
-        ssh-add -l
+        #ssh-add -l 1>&2
     fi
 else
     for agent in /tmp/ssh-*/agent.*; do
         export SSH_AUTH_SOCK=$agent
-        if ssh-add -l 2>&1 > /dev/null; then
-            echo "Found working SSH Agent:"
+        if ssh-add -l >/dev/null 2>&1 ; then
+            #echo "Found working SSH Agent:" 1>&2
             ln -fs "$SSH_AUTH_SOCK" "/tmp/.ssh-$USER-agent-sock-screen"
             export SSH_AUTH_SOCK="/tmp/.ssh-$USER-agent-sock-screen"
-            ssh-add -l
+            #ssh-add -l 1>&2
             return
         fi
     done
-    echo "No SSH agent found."
+    #echo "No SSH agent found." 1>&2
 fi
 
 
@@ -83,14 +83,14 @@ fi
 if [ "$TERM" = "xterm" ] ; then
     if [ -z "$COLORTERM" ] ; then
         if [ -z "$XTERM_VERSION" ] ; then
-            echo "Warning: Terminal wrongly calling itself 'xterm'."
+            echo "Warning: Terminal wrongly calling itself 'xterm'." 1>&2
         else
             case "$XTERM_VERSION" in
             "XTerm(256)") TERM="xterm-256color" ;;
             "XTerm(88)") TERM="xterm-88color" ;;
             "XTerm") ;;
             *)
-                echo "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION"
+                echo "Warning: Unrecognized XTERM_VERSION: $XTERM_VERSION" 1>&2
                 ;;
             esac
         fi
@@ -105,7 +105,7 @@ if [ "$TERM" = "xterm" ] ; then
                 #TERM="gnome-256color"
                 ;;
             *)
-                echo "Warning: Unrecognized COLORTERM: $COLORTERM"
+                echo "Warning: Unrecognized COLORTERM: $COLORTERM" 1>&2
                 ;;
         esac
     fi
@@ -118,15 +118,15 @@ SCREEN_COLORS="`tput colors`"
 if [ -z "$SCREEN_COLORS" ] ; then
     case "$TERM" in
         screen-*color-bce)
-            echo "Unknown terminal $TERM. Falling back to 'screen-bce'."
+            echo "Unknown terminal $TERM. Falling back to 'screen-bce'." 1>&2
             export TERM=screen-bce
             ;;
         *-88color)
-            echo "Unknown terminal $TERM. Falling back to 'xterm-88color'."
+            echo "Unknown terminal $TERM. Falling back to 'xterm-88color'." 1>&2
             export TERM=xterm-88color
             ;;
         *-256color)
-            echo "Unknown terminal $TERM. Falling back to 'xterm-256color'."
+            echo "Unknown terminal $TERM. Falling back to 'xterm-256color'." 1>&2
             export TERM=xterm-256color
             ;;
     esac
@@ -135,15 +135,15 @@ fi
 if [ -z "$SCREEN_COLORS" ] ; then
     case "$TERM" in
         gnome*|xterm*|konsole*|aterm|[Ee]term)
-            echo "Unknown terminal $TERM. Falling back to 'xterm'."
+            echo "Unknown terminal $TERM. Falling back to 'xterm'." 1>&2
             export TERM=xterm
             ;;
         rxvt*)
-            echo "Unknown terminal $TERM. Falling back to 'rxvt'."
+            echo "Unknown terminal $TERM. Falling back to 'rxvt'." 1>&2
             export TERM=rxvt
             ;;
         screen*)
-            echo "Unknown terminal $TERM. Falling back to 'screen'."
+            echo "Unknown terminal $TERM. Falling back to 'screen'." 1>&2
             export TERM=screen
             ;;
     esac
@@ -244,9 +244,12 @@ if [ "$PS1" ]; then
         ;;
     esac
 
-    if [ -f $HOME/.dotfiles/.git-completion.bash ] && ! shopt -oq posix && which git 2>/dev/null >/dev/null ; then
-        . $HOME/.dotfiles/.git-completion.bash
-        PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]$(__git_ps1 " %s")\[\033[0m\] \W \$?\$ "
+    if [ -f $HOME/.git-prompt.bash -a -f $HOME/.git-completion.bash ] && ! shopt -oq posix && which git 2>/dev/null >/dev/null ; then
+        . $HOME/.git-prompt.bash
+        . $HOME/.git-completion.bash
+        export GIT_PS1_SHOWUPSTREAM="auto"
+        export GIT_PS1_SHOWDIRTYSTATE="yes"
+        PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]\$(__git_ps1 ' %s')\[\033[0m\] \W \$?\$ "
     else
         PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\] \W \$?\$ "
     fi
@@ -286,4 +289,4 @@ if [ -f $HOME/src/runbox/conf/home/development/.perltidyrc ]; then
     export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
 fi
 
-test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent" || echo "Could not update .screen-ssh-agent"
+test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"
