@@ -6,11 +6,13 @@ CONF_FILES := .bashrc .bash_profile .bash_aliases \
 
 TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 
-all: submodules ${TARGETS}
+all: submodules symlinks
 
 submodules:
 	git submodule init
 	git submodule update
+
+symlinks: ${TARGETS}
 
 ${TARGETS}:
 	test -f $@ && mv -f $@ $@.org || true
