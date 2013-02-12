@@ -33,3 +33,5 @@
   autocrlf = input
   safecrlf = true
 # vim:ts=2
+[credential]
+	helper = cache --timeout=3600
