@@ -150,6 +150,4 @@ function push-dotfiles-to () {
 #fi
 
 
-#
-# The End
-#
+# vim:ft=sh
