@@ -1,8 +1,14 @@
 
 """" Only do stuff if we have a recent version of vim
-if version >= 700
+if v:version >= 700
 
 """" Load pathogen
+let g:pathogen_disabled = []
+if v:version <= '701'
+    """" taglist requires a recent vim
+    call add(g:pathogen_disabled, 'tagbar')
+endif
+
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
 filetype on
@@ -224,13 +230,16 @@ autocmd FileType html,ep,tt2 let b:closetag_html_style=1
 autocmd FileType html,xhtml,xml,conf,ep,tt2 source ~/.vim/bundle/closetag/plugin/closetag.vim
 
 """" tagbar
-nnoremap <F3> :TagbarToggle<CR>
-let g:tagbar_usearrows = 1
-let TE_Ctags_Path = 'exuberant-ctags'
-nnoremap <silent> <F7> :TagExplorer<CR>
-nnoremap <silent> <F8> :Tlist<CR>
 
-set tags=./tags,../tags
+if version >= 701
+  nnoremap <F3> :TagbarToggle<CR>
+  let g:tagbar_usearrows = 1
+  let TE_Ctags_Path = 'exuberant-ctags'
+  nnoremap <silent> <F7> :TagExplorer<CR>
+  nnoremap <silent> <F8> :Tlist<CR>
+
+  set tags=./tags,../tags
+endif
 
 
 """" solarized

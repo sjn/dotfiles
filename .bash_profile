@@ -7,6 +7,10 @@ if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
+if [ -d /opt/perlbrew ]; then
+    export PERLBREW_ROOT=/opt/perlbrew
+fi
+
 
 # RMM: Generated with local::lib
 export MY_PERL_VERSION=$(perl -e 'print $]')

@@ -2,6 +2,12 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+
+# load original .bashrc, if it exists
+if [ -f ~/.bashrc.org ]; then
+    . ~/.bashrc.org
+fi
+
 # set PATH so it includes user's private bin if it exists
 if [ -d ~/bin ] ; then
     PATH=~/bin:"${PATH}"
@@ -275,11 +281,11 @@ if [ -d $HOME/perl5/lib/perl5 ]; then
 
 fi
 
-#if [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
-#
-#   source $HOME/perl5/perlbrew/etc/bashrc
-#
-#fi
+if [ -z "$PERLBREW_ROOT" -a -f $HOME/perl5/perlbrew/etc/bashrc ]; then
+
+   source $HOME/perl5/perlbrew/etc/bashrc
+
+fi
 
 if [ -d /var/store/CPAN ]; then
     export PERL_CPANM_OPT="--mirror file:///var/store/CPAN/"
@@ -288,5 +294,9 @@ fi
 if [ -f $HOME/src/runbox/conf/home/development/.perltidyrc ]; then
     export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
 fi
+
+
+
+
 
 test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"
