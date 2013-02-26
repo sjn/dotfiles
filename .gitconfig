@@ -30,7 +30,7 @@
   status = auto
   ui = true
 [core]
-  autocrlf = input
+	autocrlf = false
   safecrlf = true
 # vim:ts=2
 [credential]
