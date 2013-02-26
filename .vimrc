@@ -185,8 +185,6 @@ autocmd FileType perl set autowrite
 
 if exists('+colorcolumn')
     set colorcolumn=76
-else
-    autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>77v.\+', -1)
 endif
 
 
