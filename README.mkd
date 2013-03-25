@@ -15,3 +15,10 @@ $ cpanm Vimana
 $ vimana update
 $ vimana search <something>
 $ vimana install <something>
+
+# Other useful tools and sites
+
+mtr
+iftop
+http://rubytune.com/cheat
+Bash::Complete
