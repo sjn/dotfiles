@@ -21,3 +21,4 @@ $ vimana install <something>
 mtr
 iftop
 http://rubytune.com/cheat
+Bash::Complete
