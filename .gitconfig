@@ -4,7 +4,8 @@
   email = sjn@cpan.org
 [alias]
   ci        = commit
-  st        = status -sb
+  st        = status
+#  st        = status -sb
   co        = checkout
   br        = branch
   df        = diff
