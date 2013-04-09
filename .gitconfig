@@ -1,3 +1,4 @@
+# vim:ts=2
 [user]
   name = Salve J. Nilsen
   email = sjn@cpan.org
@@ -21,6 +22,9 @@
   lolr      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   lol       = log --graph --decorate --pretty=oneline --abbrev-commit
   lola      = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ours      = "!f() { git checkout --ours $@ && git add $@; }; f"
+  theirs    = "!f() { git checkout --theirs $@ && git add $@; }; f"
+  snapshot  = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
 
 # http://www.youtube.com/watch?v=Z2ZL14WWEJI
 [color]
@@ -30,8 +34,10 @@
   status = auto
   ui = true
 [core]
-	autocrlf = false
+  autocrlf = false
   safecrlf = true
-# vim:ts=2
 [credential]
-	helper = cache --timeout=3600
+  helper = cache --timeout=3600
+[diff]
+# algorithm = histogram
+  algorithm = patience
