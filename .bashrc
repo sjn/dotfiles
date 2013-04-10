@@ -68,10 +68,12 @@ HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+shopt -s cmdhist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
 HISTFILESIZE=2000
+HISTTIMEFORMAT=yes
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -244,7 +246,7 @@ if [ "$PS1" ]; then
     case $TERM in
     screen*|gnome*|xterm*|rxvt*)
         TTY=`tty`
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"'
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"; history -a; history -n'
         ;;
     *)
         ;;
@@ -287,16 +289,21 @@ if [ -z "$PERLBREW_ROOT" -a -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 
 fi
 
-if [ -d /var/store/CPAN ]; then
-    export PERL_CPANM_OPT="--mirror file:///var/store/CPAN/"
-fi
+for cpanroot in /var/store/CPAN /opt/minicpan/CPAN /home/minicpan/CPAN; do
+    if [ -d $cpanroot ]; then
+        export PERL_CPANM_OPT="--mirror file://$cpanroot"
+        break
+    fi
+done
 
 if [ -f $HOME/src/runbox/conf/home/development/.perltidyrc ]; then
     export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
 fi
 
-
-
+# Bash::Complete
+if [ -f $HOME/perl5/bin/setup-bash-complete ]; then
+    source $HOME/perl5/bin/setup-bash-complete
+fi
 
 
 test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"

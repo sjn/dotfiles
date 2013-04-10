@@ -1,1 +1,1 @@
-tree perldoc git vim language-pack-nb aspell-no
+language-pack-nb tree perl-doc git vim aspell-no
