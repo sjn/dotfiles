@@ -1,36 +1,36 @@
 [submodule ".vim/bundle/fugitive"]
 	path = .vim/bundle/fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule ".vim/bundle/tagbar"]
 	path = .vim/bundle/tagbar
-	url = git@github.com:majutsushi/tagbar.git
+	url = https://github.com/majutsushi/tagbar.git
 [submodule ".vim/bundle/solarized"]
 	path = .vim/bundle/solarized
-	url = git@github.com:altercation/vim-colors-solarized.git
+	url = https://github.com/altercation/vim-colors-solarized.git
 [submodule ".vim/bundle/closetag"]
 	path = .vim/bundle/closetag
-	url = git@github.com:docunext/closetag.vim.git
+	url = https://github.com/docunext/closetag.vim.git
 [submodule ".vim/bundle/delmitmate"]
 	path = .vim/bundle/delmitmate
-	url = git@github.com:Raimondi/delimitMate.git
+	url = https://github.com/Raimondi/delimitMate.git
 [submodule ".vim/bundle/nerdtree"]
 	path = .vim/bundle/nerdtree
-	url = git@github.com:scrooloose/nerdtree.git
+	url = https://github.com/scrooloose/nerdtree.git
 [submodule ".vim/bundle/vim-perl"]
 	path = .vim/bundle/vim-perl
-	url = git@github.com:vim-perl/vim-perl
+	url = https://github.com/vim-perl/vim-perl
 [submodule ".vim/bundle/pathogen"]
 	path = .vim/bundle/pathogen
-	url = git@github.com:tpope/vim-pathogen.git
-[submodule "git@github.com:vim-scripts/unimpaired.vim.git"]
-	path = git@github.com:vim-scripts/unimpaired.vim.git
+	url = https://github.com/tpope/vim-pathogen.git
+[submodule ".vim/bundle/unimpared"]
+	path = https://github.com/vim-scripts/unimpaired.vim.git
 	url = ./.vim/bundle/unimpaired
 [submodule ".vim/bundle/nerdtree-tabs"]
+	url = https://github.com/jistr/vim-nerdtree-tabs.git
 	path = .vim/bundle/nerdtree-tabs
-	url = git@github.com:jistr/vim-nerdtree-tabs.git
 [submodule ".vim/bundle/perlomni"]
+	url = https://github.com/c9s/perlomni.vim.git
 	path = .vim/bundle/perlomni
-	url = git@github.com:c9s/perlomni.vim.git
 [submodule ".vim/bundle/zencoding-vim"]
+	url = https://github.com/mattn/zencoding-vim.git
 	path = .vim/bundle/zencoding-vim
-	url = git@github.com:mattn/zencoding-vim.git
