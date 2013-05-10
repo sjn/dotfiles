@@ -46,5 +46,5 @@
 [diff]
 # algorithm = histogram
   algorithm = patience
-[push]
-  default = simple
+#[push]
+#  default = simple
