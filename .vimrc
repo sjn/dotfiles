@@ -67,6 +67,8 @@ set hlsearch " Highlight searches by default.
 set incsearch " Incrementally search while typing a /regex
 set showfulltag " Show full tag completions
 set complete=.,w,b,u,U,d,k,t " Better completion, full tags last, no ',i'
+nnoremap <CR> :noh<CR><CR> " Clear searches with <CR>
+
 
 """" Suffixes that get lower priority when doing tab completion for
 """" filenames. These are files we are not likely to want to edit or read.
