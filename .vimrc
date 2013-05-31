@@ -33,6 +33,8 @@ map <C-0> :tablast<CR>
 """" Basic settings
 set copyindent
 set expandtab
+set smarttab
+set autoindent
 set exrc  "for Vroom::Vroom"
 set modeline
 set nocursorcolumn
