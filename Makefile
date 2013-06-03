@@ -1,4 +1,8 @@
 # For setting up dotfiles
+#
+#   make symlinks
+#   make submodules
+#   make
 
 CONF_FILES := .bashrc .bash_profile .bash_aliases \
 	.git-prompt.bash .git-completion.bash .config/git/config \
