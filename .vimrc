@@ -9,8 +9,10 @@ if v:version <= '701'
     call add(g:pathogen_disabled, 'tagbar')
 endif
 
+filetype off
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
+call pathogen#helptags()
 filetype on
 filetype plugin on
 filetype indent on
@@ -31,6 +33,7 @@ map <C-0> :tablast<CR>
 
 
 """" Basic settings
+let mapleader = ","
 set copyindent
 set expandtab
 set smarttab
@@ -52,6 +55,9 @@ set tabstop=4
 set textwidth=76
 "set whichwrap=<,>,h,l,[,]
 set ww=<,>,[,],h,l,b,s,~
+set number
+set wrap
+set formatoptions=qrn1
 
 
 """" Turn on display of certain invisible characters
@@ -162,47 +168,86 @@ cnoremap <ESC>b <S-Left>
 cnoremap <ESC>f <S-Right>
 cnoremap <ESC><BS> <C-W>
 
-"""" Makefile stuff
-autocmd FileType make setlocal listchars+=tab:\ \ 
-autocmd FileType make setlocal noexpandtab
-"autocmd FileType make
+"""" Help, we want no help key.
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
 
-"""" Perl stuff
-autocmd FileType perl set autoindent
-autocmd FileType perl set equalprg=perltidy
-autocmd FileType perl set expandtab
-autocmd FileType perl set number
-autocmd FileType perl set shiftwidth=4
-autocmd FileType perl set showmatch
-autocmd FileType perl set smartindent
-autocmd FileType perl set softtabstop=0
-"autocmd FileType perl set softtabstop=4
-autocmd FileType perl set tabstop=4
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-autocmd FileType perl let g:nerdtree_tabs_open_on_console_startup=1
-map <F2> <plug>NERDTreeTabsToggle<CR>
-" check perl code with :make
-autocmd FileType perl set makeprg=perl\ -c\ %\ $*
-autocmd FileType perl set errorformat=%f:%l:%m
-autocmd FileType perl set autowrite
 
-"""" perlomni key-combo is annoying when using screen -e ^Oo
-"autocmd FileType perl nnoremap <C-x><C-o> <C-x>-
+if has("autocmd")
 
+  """" Makefile stuff
+  autocmd FileType make setlocal listchars+=tab:\ \ 
+  autocmd FileType make setlocal noexpandtab
+  "autocmd FileType make
+
+  " Save on lost focus
+  autocmd FocusLost * :wa
+
+  """" Perl stuff
+  autocmd FileType perl set autoindent
+  autocmd FileType perl set equalprg=perltidy
+  autocmd FileType perl set expandtab
+  autocmd FileType perl set shiftwidth=4
+  autocmd FileType perl set showmatch
+  autocmd FileType perl set smartindent
+  autocmd FileType perl set softtabstop=0
+  "autocmd FileType perl set softtabstop=4
+  autocmd FileType perl set tabstop=4
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+  autocmd FileType perl let g:nerdtree_tabs_open_on_console_startup=1
+  map <F2> <plug>NERDTreeTabsToggle<CR>
+  " check perl code with :make
+  autocmd FileType perl set makeprg=perl\ -c\ %\ $*
+  autocmd FileType perl set errorformat=%f:%l:%m
+  autocmd FileType perl set autowrite
+
+  """" perlomni key-combo is annoying when using screen -e ^Oo
+  "autocmd FileType perl nnoremap <C-x><C-o> <C-x>-
+
+  """" Treat *.conf files as Apache config files
+  autocmd BufNewFile,BufRead *.conf set filetype=apache
+  autocmd BufNewFile,BufRead *.tpl set filetype=tt2
+  autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
+  autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
+
+  """" closetag
+  autocmd FileType html,ep,tt2 let b:closetag_html_style=1
+  autocmd FileType html,xhtml,xml,conf,ep,tt2 source ~/.vim/bundle/closetag/plugin/closetag.vim
+
+  " from https://github.com/stick/vimfiles/blob/master/vimrc
+  augroup vimrcEx
+  au!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  " Also don't do it when the mark is in the first line, that is the default
+  " position when opening a file.
+
+  autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \ exe "normal! g`\"" |
+    \ endif
+
+  augroup END
+
+endif " has("autocmd")
+
+"""" Tabularize
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
 
 "highlight OverLength ctermbg=red ctermfg=white guibg=#FFD9D9
 "match OverLength /\>%79v.\+/
 
 if exists('+colorcolumn')
-    set colorcolumn=76
+    set colorcolumn=77
 endif
-
-
-"""" Treat *.conf files as Apache config files
-autocmd BufNewFile,BufRead *.conf set filetype=apache
-autocmd BufNewFile,BufRead *.tpl set filetype=tt2
-autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
-autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
 
 
 " paste mode - this will avoid unexpected effects when you
@@ -228,10 +273,6 @@ let perl_sync_dist = 250 "use more context for highlighting"
 
 """" supertab
 "let g:SuperTabDefaultCompletionType = "context"
-
-"""" closetag
-autocmd FileType html,ep,tt2 let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,conf,ep,tt2 source ~/.vim/bundle/closetag/plugin/closetag.vim
 
 """" tagbar
 
@@ -310,3 +351,11 @@ vmap { d<Esc>i{<Esc>p
 """" End of vim 7.0 block
 endif
 
+
+if v:version >= 703
+
+set norelativenumber
+set undofile
+
+endif
+"""" End of vim 7.3 block
