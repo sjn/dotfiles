@@ -240,8 +240,8 @@ fi
 # If running interactively, then:
 if [ "$PS1" ]; then
 
-    # don't put duplicate lines in the history. See bash(1) for more options
-    export FIGNORE='~'
+    # Don't tab-complete to filenames with the following suffixes
+    export FIGNORE='~:.bak:.old'
 
     # some more ls aliases
     alias m='less -MQr'
