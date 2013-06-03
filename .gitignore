@@ -4,3 +4,4 @@
 .vim/record/perlomni.vim
 *.swp
 .gitconfig
+*~
