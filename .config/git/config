@@ -48,3 +48,10 @@
   algorithm = patience
 [push]
   default = current
+
+[status]
+  submoduleSummary = true
+
+[diff]
+  noprefix = true
+  renames = copies
