@@ -246,7 +246,7 @@ endif
 "match OverLength /\>%79v.\+/
 
 if exists('+colorcolumn')
-    set colorcolumn=77
+    set colorcolumn=78
 endif
 
 
