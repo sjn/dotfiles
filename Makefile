@@ -6,7 +6,7 @@
 
 CONF_FILES := .bashrc .bash_profile .bash_aliases \
 	.git-prompt.bash .git-completion.bash .config/git/config \
-	.screenrc .tmux.conf .vimrc .vim .perltidyrc
+	.screenrc .tmux.conf .vimrc .vim .perltidyrc .signature
 
 TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 
@@ -22,8 +22,9 @@ submodules:
 symlinks: ${TARGETS}
 
 ${TARGETS}:
+	mkdir -p $(dir $@)
 	test -f $@ && mv -f $@ $@.org || true
-	ln -s .dotfiles/$(notdir $@) $@
+	ln -fs $(HOME)/.dotfiles/$(subst ${HOME}/,,$@) $@
 
 .PHONY: all submodules
 
