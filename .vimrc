@@ -205,6 +205,8 @@ if has("autocmd")
   """" perlomni key-combo is annoying when using screen -e ^Oo
   "autocmd FileType perl nnoremap <C-x><C-o> <C-x>-
 
+  autocmd FileType puppet set ts=2 sts=2 sw=2 sta ai et
+
   """" Treat *.conf files as Apache config files
   autocmd BufNewFile,BufRead *.conf set filetype=apache
   autocmd BufNewFile,BufRead *.tpl set filetype=tt2
