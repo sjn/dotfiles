@@ -29,6 +29,9 @@ if [ -d /sbin ]; then
     PATH="${PATH}":/sbin
 fi
 
+# if we have a dumb terminal, let's not do all the preparations below
+[ "$TERM" = 'dumb' ] && return
+
 # perlomni.vim bin path
 if [ -d "${HOME}/.vim/bundle/perlomni/bin" ]; then
     PATH="${PATH}:${HOME}/.vim/bundle/perlomni/bin"
@@ -86,6 +89,7 @@ shopt -s checkwinsize
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
+
 
 # Detect colors
 if [ "$TERM" = "xterm" ] ; then
@@ -236,8 +240,8 @@ fi
 # If running interactively, then:
 if [ "$PS1" ]; then
 
-    # don't put duplicate lines in the history. See bash(1) for more options
-    export FIGNORE='~'
+    # Don't tab-complete to filenames with the following suffixes
+    export FIGNORE='~:.bak:.old'
 
     # some more ls aliases
     alias m='less -MQr'

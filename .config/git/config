@@ -4,7 +4,8 @@
   email = sjn@cpan.org
 [alias]
   ci        = commit
-  st        = status -sb
+  st        = status
+#  st        = status -sb
   co        = checkout
   br        = branch
   df        = diff
@@ -45,3 +46,12 @@
 [diff]
 # algorithm = histogram
   algorithm = patience
+[push]
+  default = current
+
+[status]
+  submoduleSummary = true
+
+[diff]
+  noprefix = true
+  renames = copies

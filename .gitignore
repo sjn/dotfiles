@@ -3,3 +3,5 @@
 .vim/ftplugin/
 .vim/record/perlomni.vim
 *.swp
+.gitconfig
+*~
