@@ -74,8 +74,8 @@ shopt -s histappend
 shopt -s cmdhist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=3000
 HISTTIMEFORMAT=yes
 
 # check the window size after each command and, if necessary,
@@ -236,6 +236,7 @@ fi
 
 
 #### Salve sitt
+TTY=`tty`
 
 # If running interactively, then:
 if [ "$PS1" ]; then
