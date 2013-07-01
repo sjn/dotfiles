@@ -21,7 +21,7 @@ alias base64dec='perl -MMIME::Base64 -e "print decode_base64(join(q(),<>))"'
 # SSH aliases
 #
 alias ping.uio='ssh -4 -C -g -t -L3128:localhost:3128 -l sjn login.ping.uio.no'
-alias tyrell.nvg='ssh -2 -4 -C -t -A -l sjn tyrell.nvg.ntnu.no'
+alias tyrell.nvg='ssh -2 -4 -C -t -A -D8080 -l sjn tyrell.nvg.ntnu.no'
 alias tyrell.nvg-s='ssh -2 -4 -C -t -A -l sjn tyrell.nvg.ntnu.no screen -Ux'
 alias sprocket.nvg='ssh -2 -4 -C -t -A -l sjn sprocket.nvg.ntnu.no'
 alias sprocket.nvg-s='ssh -2 -4 -C -t -A -l sjn sprocket.nvg.ntnu.no screen -Ux'
