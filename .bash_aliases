@@ -29,6 +29,7 @@ alias hagbart.nvg='ssh -2 -4 -C -t -A -l sjn hagbart.nvg.ntnu.no'
 alias hagbart.nvg-s='ssh -2 -4 -C -t -A -l sjn hagbart.nvg.ntnu.no screen -Ux'
 alias decibel.pvv='ssh -2 -4 -C -t -A -l sjn decibel.pvv.ntnu.no'
 alias microbel.pvv='ssh -2 -4 -C -t -A -l sjn microbel.pvv.ntnu.no'
+alias microbel.pvv-s='ssh -2 -4 -C -t -A -l sjn microbel.pvv.ntnu.no -U -x'
 alias nuug.no='ssh -2 -4 -C -t -A -l sjn nerdhaven.nuug.no'
 alias ssh-recover-agent='test ! -z "$SSH_AUTH_SOCK" && test -S "$SSH_AUTH_SOCK" && ssh-add -l || export SSH_AUTH_SOCK=$(for SSH_AUTH_SOCK in $(find /tmp -user `whoami` -name agent\* 2>&- ); do ssh-add -l 1>&2 && echo "$SSH_AUTH_SOCK" && break; done;); test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"'
 
