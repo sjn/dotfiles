@@ -1,3 +1,7 @@
+# Examples and ideas are stolen from several sources on github. Feel free
+# to steal them yourself! :)
+#
+#
 # vim:ts=2
 [user]
   name = Salve J. Nilsen
@@ -41,6 +45,7 @@
 [core]
   autocrlf = false
   safecrlf = true
+  whitespace = fix,space-before-tab,tab-in-indent,trailing-space
 [credential]
   helper = cache --timeout=3600
 [diff]
@@ -55,3 +60,9 @@
 [diff]
   noprefix = true
   renames = copies
+
+[merge]
+  recursive = patience
+
+[include]
+  path = ~/.gitconfig.local
