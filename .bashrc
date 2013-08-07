@@ -282,11 +282,15 @@ if [ "$PS1" ]; then
 
 fi
 
-if [ -d $HOME/perl5/lib/perl5 ]; then
+for perllibdir in $HOME/perl5; do
+    if [ -d $perllibdir/lib/perl5 ]; then
 
-   eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+        eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
+        export PATH=${PATH}:$perllibdir/bin
+        break
 
-fi
+    fi
+done
 
 if [ -z "$PERLBREW_ROOT" -a -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 
@@ -309,6 +313,3 @@ fi
 if [ -f $HOME/perl5/bin/setup-bash-complete ]; then
     source $HOME/perl5/bin/setup-bash-complete
 fi
-
-
-test -S "$SSH_AUTH_SOCK" -a -r "$SSH_AUTH_SOCK" && ln -sf "$SSH_AUTH_SOCK" "$HOME/.screen-ssh-agent"
