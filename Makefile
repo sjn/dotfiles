@@ -15,9 +15,8 @@ all: submodules symlinks
 submodules:
 	git submodule init
 	git submodule update
-	git submodule foreach git checkout master
 	git submodule foreach git fetch --all
-	git submodule foreach git rebase origin/master
+	git submodule foreach git reset --hard master
 
 symlinks: ${TARGETS}
 
