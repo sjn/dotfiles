@@ -6,7 +6,8 @@
 
 CONF_FILES := .bashrc .bash_profile .bash_aliases \
 	.git-prompt.bash .git-completion.bash .config/git/config \
-	.screenrc .tmux.conf .vimrc .vim .perltidyrc .signature
+	.screenrc .tmux.conf .vimrc .vim .perltidyrc .signature \
+	.Xresources
 
 TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 

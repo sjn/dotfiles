@@ -291,16 +291,21 @@ endif
 
 """" solarized
 "set background=light
-set background=dark
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
-let g:solarized_degrade=1
-let g:solarized_bold=1
-let g:solarized_underline=1
-let g:solarized_italic=1
-colorscheme solarized
+"set background=dark
+"let g:solarized_termtrans=1
+"let g:solarized_termcolors=256
+"let g:solarized_contrast="high"
+"let g:solarized_visibility="high"
+"let g:solarized_degrade=1
+"let g:solarized_bold=1
+"let g:solarized_underline=1
+"let g:solarized_italic=1
+"colorscheme solarized
+
+"""" hybrid colorscheme
+let g:hybrid_use_Xresources = 1
+colorscheme hybrid
+
 
 """" delimitmate
 let delimitMate_autoclose=1
