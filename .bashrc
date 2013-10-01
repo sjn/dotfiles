@@ -313,3 +313,8 @@ fi
 if [ -f $HOME/perl5/bin/setup-bash-complete ]; then
     source $HOME/perl5/bin/setup-bash-complete
 fi
+
+# Komodo stuff
+if [ -f $HOME/bin/Komodo-IDE-8/bin ]; then
+    export PATH="$HOME/bin/Komodo-IDE-8/bin:$PATH"
+fi
