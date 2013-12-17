@@ -318,3 +318,11 @@ fi
 if [ -f $HOME/bin/Komodo-IDE-8/bin ]; then
     export PATH="$HOME/bin/Komodo-IDE-8/bin:$PATH"
 fi
+
+# plenv(1) path (perlbrew alternative)
+if [ -f $HOME/.plenv/bin/plenv ]; then
+   export PATH="$HOME/.plenv/bin:$PATH"
+   eval "$(plenv init -)"
+fi
+
+

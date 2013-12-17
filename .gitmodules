@@ -32,7 +32,7 @@
 	url = https://github.com/c9s/perlomni.vim.git
 	path = .vim/bundle/perlomni
 [submodule ".vim/bundle/zencoding-vim"]
-	url = https://github.com/mattn/zencoding-vim.git
+	url = https://github.com/mattn/emmet-vim.git
 	path = .vim/bundle/zencoding-vim
 [submodule ".vim/bundle/puppet-syntax-vim"]
 	path = .vim/bundle/puppet-syntax-vim
