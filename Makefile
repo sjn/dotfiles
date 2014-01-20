@@ -14,8 +14,8 @@ TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 all: submodules symlinks
 
 submodules:
-	git submodule init
-	git submodule update
+	#git submodule init
+	git submodule update --init --recursive
 	git submodule foreach git fetch --all
 	git submodule foreach git reset --hard master
 
