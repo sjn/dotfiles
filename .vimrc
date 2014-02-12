@@ -9,6 +9,11 @@ if v:version <= '701'
     call add(g:pathogen_disabled, 'tagbar')
 endif
 
+if v:version <= '703'
+    """" YouCompleteMe requires a recent vim
+    call add(g:pathogen_disabled, 'YouCompleteMe')
+endif
+
 filetype off
 runtime bundle/pathogen/autoload/pathogen.vim
 call pathogen#infect()
