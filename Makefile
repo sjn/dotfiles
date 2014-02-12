@@ -15,8 +15,8 @@ all: submodules symlinks
 
 submodules:
 	git submodule update --init --recursive
-	git submodule foreach git pull origin master
 	git submodule foreach git reset --hard master
+	git submodule foreach git pull origin master
 
 symlinks: ${TARGETS}
 
