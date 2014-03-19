@@ -55,7 +55,7 @@
   default = current
 
 [status]
-  submoduleSummary = true
+  submoduleSummary = false
 
 [diff]
   noprefix = true
