@@ -21,6 +21,14 @@ submodules:
 
 symlinks: ${TARGETS}
 
+ycm:
+	# ycm_client_support.so ycm_core.so
+	cd .vim/bundle/YouCompleteMe/
+	sudo apt-get install build-essential cmake python-dev
+	git submodule update --init --recursive
+	cd .vim/bundle/YouCompleteMe/
+	./install.sh --clang-completer
+
 ${TARGETS}:
 	mkdir -p $(dir $@)
 	test -f $@ && mv -f $@ $@.org || true
