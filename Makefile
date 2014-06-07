@@ -13,10 +13,11 @@ TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 
 all: submodules symlinks
 
+#git submodule update --init --recursive
 submodules:
-	git submodule update --init --recursive
-	git submodule foreach git reset --hard master
-	git submodule foreach git pull origin master
+	git submodule foreach --recursive git reset --hard --quiet origin/master
+	git submodule foreach --recursive git checkout master
+	git submodule foreach --recursive git pull origin master
 
 symlinks: ${TARGETS}
 
