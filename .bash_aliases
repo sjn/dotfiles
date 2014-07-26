@@ -29,6 +29,7 @@ alias decibel.pvv-s='ssh -2 -4 -C -t -A -l sjn decibel.pvv.ntnu.no screen -Ux'
 alias microbel.pvv='ssh -2 -4 -C -t -A -l sjn microbel.pvv.ntnu.no'
 alias microbel.pvv-s='ssh -2 -4 -C -t -A -l sjn microbel.pvv.ntnu.no screen -Ux'
 alias nuug.no='ssh -2 -4 -C -t -A -l sjn nerdhaven.nuug.no'
+alias runbox.no='ssh -2 -4 -C -t -A -l sjn runbox.no'
 
 alias tyrell.nvg-s='ssh -2 -4 -C -t -A -l sjn tyrell.nvg.ntnu.no screen -Ux'
 alias sprocket.nvg-s='ssh -2 -4 -C -t -A -l sjn sprocket.nvg.ntnu.no screen -Ux'
