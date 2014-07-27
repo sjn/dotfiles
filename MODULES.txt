@@ -1,8 +1,0 @@
-Perl::Version
-Perl::Tidy
-App::cpanlistchanges
-App::cpanoutdated
-App::scan_prereqs_cpanfile
-App::perlbrew
-Perl::Build
-Dist::Zilla

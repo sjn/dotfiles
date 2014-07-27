@@ -22,3 +22,12 @@ mtr
 iftop
 http://rubytune.com/cheat
 Bash::Complete
+Text::VimColor
+Perl::Version
+Perl::Tidy
+App::cpanlistchanges
+App::cpanoutdated
+App::scan_prereqs_cpanfile
+App::perlbrew
+Perl::Build
+Dist::Zilla

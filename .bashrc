@@ -29,6 +29,10 @@ if [ -d /sbin ]; then
     PATH="${PATH}":/sbin
 fi
 
+if [ -d $HOME/perl6/bin ]; then
+    PATH="${PATH}":$HOME/perl6/bin
+fi
+
 # if we have a dumb terminal, let's not do all the preparations below
 [ "$TERM" = 'dumb' ] && return
 
