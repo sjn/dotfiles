@@ -5,11 +5,13 @@ if v:version >= 700
 """" Load pathogen
 let g:pathogen_disabled = []
 if v:version <= '701'
-    """" taglist requires a recent vim
+    """" taglist requires a more recent vim
     call add(g:pathogen_disabled, 'tagbar')
 endif
 
 if v:version <= '703'
+    """" taglist requires an even recent vim
+    call add(g:pathogen_disabled, 'vim-gitgutter')
     """" YouCompleteMe requires a recent vim
     call add(g:pathogen_disabled, 'YouCompleteMe')
 endif
@@ -63,6 +65,8 @@ set ww=<,>,[,],h,l,b,s,~
 set number
 set wrap
 set formatoptions=qrn1
+set clipboard=exclude:.*
+
 
 
 """" Turn on display of certain invisible characters
@@ -181,6 +185,9 @@ vnoremap <F1> <ESC>
 
 if has("autocmd")
 
+  augroup EditVim
+  autocmd!
+
   """" Makefile stuff
   autocmd FileType make setlocal listchars+=tab:\ \ 
   autocmd FileType make setlocal noexpandtab
@@ -221,6 +228,8 @@ if has("autocmd")
   """" closetag
   autocmd FileType html,ep,tt2 let b:closetag_html_style=1
   autocmd FileType html,xhtml,xml,conf,ep,tt2 source ~/.vim/bundle/closetag/plugin/closetag.vim
+
+  augroup END
 
   " from https://github.com/stick/vimfiles/blob/master/vimrc
   augroup vimrcEx

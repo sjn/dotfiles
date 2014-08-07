@@ -329,4 +329,7 @@ if [ -f $HOME/.plenv/bin/plenv ]; then
    eval "$(plenv init -)"
 fi
 
+if [ -f $HOME/.gnupg/secring.gpg ]; then
+   GPGKEY=B14126EA
+fi
 
