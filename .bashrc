@@ -333,3 +333,6 @@ if [ -f $HOME/.gnupg/secring.gpg ]; then
    GPGKEY=B14126EA
 fi
 
+# Pager environment (for more useful defaults)
+export PAGER="less -+C -E -R"
+
