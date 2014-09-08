@@ -21,6 +21,10 @@ $ vimana install <something>
 mtr
 iftop
 http://rubytune.com/cheat
+
+# Useful Perl modules
+strictures
+Carp::Always
 Bash::Complete
 Text::VimColor
 Perl::Version
@@ -31,3 +35,4 @@ App::scan_prereqs_cpanfile
 App::perlbrew
 Perl::Build
 Dist::Zilla
+Data::Printer
