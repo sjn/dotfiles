@@ -333,6 +333,10 @@ if [ -f $HOME/.gnupg/secring.gpg ]; then
    GPGKEY=B14126EA
 fi
 
+if [ -d $HOME/.rakudobrew ]; then
+   export PATH=~/.rakudobrew/bin:$PATH
+fi
+
 # Pager environment (for more useful defaults)
 export PAGER="less -+C -E -R"
 
