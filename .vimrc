@@ -356,6 +356,9 @@ map  <silent> <s-tab> <Esc>:if &modifiable && !&readonly &&
 imap <silent> <s-tab> <Esc>:if &modifiable && !&readonly &&
      \ &modified <CR> :write<CR> :endif<CR>:bnext<CR>
 
+" markdown stuff
+let g:vim_markdown_folding_disabled=1
+
 
 
 " insert mode : autocomplete brackets and braces
