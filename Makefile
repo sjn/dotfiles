@@ -25,8 +25,7 @@ symlinks: ${TARGETS}
 # ycm_client_support.so ycm_core.so
 ycm:
 	sudo apt-get install build-essential cmake python-dev
-	git submodule init --recursive .vim/bundle/YouCompleteMe
-	git submodule update --recursive --rebase .vim/bundle/YouCompleteMe
+	git submodule update --init --recursive --rebase .vim/bundle/YouCompleteMe
 	git submodule foreach --recursive git reset --hard --quiet origin/master
 	git submodule foreach --recursive git checkout master
 	cd .vim/bundle/YouCompleteMe/ && ./install.sh --clang-completer
