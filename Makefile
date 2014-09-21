@@ -15,7 +15,7 @@ all: submodules symlinks
 
 #git submodule update --init --recursive
 submodules:
-	git submodule foreach --recursive git fetch
+	git submodule update --recursive --rebase
 	git submodule foreach --recursive git reset --hard --quiet origin/master
 	git submodule foreach --recursive git checkout master
 	git submodule foreach --recursive git pull origin master
@@ -25,7 +25,8 @@ symlinks: ${TARGETS}
 # ycm_client_support.so ycm_core.so
 ycm:
 	sudo apt-get install build-essential cmake python-dev
-	git submodule foreach --recursive git fetch
+	git submodule init --recursive .vim/bundle/YouCompleteMe
+	git submodule update --recursive --rebase .vim/bundle/YouCompleteMe
 	git submodule foreach --recursive git reset --hard --quiet origin/master
 	git submodule foreach --recursive git checkout master
 	cd .vim/bundle/YouCompleteMe/ && ./install.sh --clang-completer
