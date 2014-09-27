@@ -1,1 +1,16 @@
-language-pack-nb tree perl-doc git vim aspell-no exuberant-ctags build-essential cmake python-dev mtr iftop
+language-pack-nb
+tree
+perl-doc
+git
+vim
+aspell-no
+exuberant-ctags
+build-essential
+cmake
+python-dev
+mtr
+iftop
+mosh
+apt-listchanges
+apt-file
+aptitude
