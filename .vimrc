@@ -153,7 +153,8 @@ if has('multi_byte') " If multibyte support is available and
         if empty(&tenc) " default to
             let &tenc = &enc " using the current encoding for terminal output
         endif " unless another terminal encoding was already set
-        set enc=utf-8 " but use utf-8 for all data internally
+        set encoding=utf-8 " but use utf-8 for all data internally
+        set termencoding=utf-8
     endif
 endif
 
@@ -304,20 +305,28 @@ endif
 
 
 """" solarized
-"set background=light
+set background=light
 "set background=dark
-"let g:solarized_termtrans=1
-"let g:solarized_termcolors=256
-"let g:solarized_contrast="high"
-"let g:solarized_visibility="high"
-"let g:solarized_degrade=1
-"let g:solarized_bold=1
-"let g:solarized_underline=1
-"let g:solarized_italic=1
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+let g:solarized_degrade=1
+let g:solarized_bold=1
+let g:solarized_underline=1
+let g:solarized_italic=1
 "colorscheme solarized
 
 """" hybrid colorscheme
 let g:hybrid_use_Xresources = 1
+let g:hybrid_termtrans=1
+let g:hybrid_termcolors=256
+let g:hybrid_contrast="high"
+let g:hybrid_visibility="high"
+let g:hybrid_degrade=1
+let g:hybrid_bold=1
+let g:hybrid_underline=1
+let g:hybrid_italic=1
 colorscheme hybrid
 
 
