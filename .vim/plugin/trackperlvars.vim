@@ -1,8 +1,8 @@
 " Vim global plugin for tracking Perl vars in source
-                   \ .  '[@]\_s*\zs'.varname.'\ze\|{\zs'.varname.'\ze}\%(\_s*[{]\)\@!'
+"
 " Last change:  Sun May 18 11:40:10 EST 2014
-" Maintainer:	Damian Conway
-" License:	This file is placed in the public domain.
+" Maintainer:   Damian Conway
+" License:  This file is placed in the public domain.
 
 " If already loaded, we're done...
 if exists("loaded_trackperlvars")
@@ -14,39 +14,73 @@ let loaded_trackperlvars = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-
 "=====[ Interface ]==========================================
 
 " Track vars after each cursor movement...
-augroup TrackVar
+augroup TrackVarGlobal
     autocmd!
-    au CursorMoved  *.pl,*.pm,*.t  call TPV_track_perl_var()
-    au CursorMovedI *.pl,*.pm,*.t  call TPV_track_perl_var()
-
-    au BufEnter     *.pl,*.pm,*.t  call TPV__setup()
+    autocmd BufEnter *  call TPV__setup()
+    autocmd WinEnter *  call TPV__setup()
+    autocmd BufLeave *  call TPV__teardown()
 augroup END
 
 function! TPV__setup ()
-    " Remember how * was set up (if it was) and change it...
-    let b:old_star_map = maparg('*')
-    nmap <special> <buffer><silent> *   :let @/ = TPV_locate_perl_var()<CR>
+    " Only in Perl files...
+    if &filetype == 'perl' || expand("%:e") =~ '^\%(\.p[lm]\|\.t\)$'
 
-    " cv --> change variable...
-    nmap <special> <buffer>         cv  :call TPV_rename_perl_var('normal')<CR>
-    vmap <special> <buffer>         cv  :call TPV_rename_perl_var('visual')<CR>gv
+        " Tracking can be locked by setting this variable
+        if !exists('b:track_perl_var_locked')
+            let b:track_perl_var_locked = 0
+        endif
 
-    " gd --> goto definition...
-    nmap <special> <buffer><silent> gd  :let @/ = TPV_locate_perl_var_decl()<CR>
+        " Set up autocommands...
+        augroup TrackVarBuffer
+            autocmd!
+            autocmd CursorMoved  <buffer>  call TPV_track_perl_var()
+            autocmd CursorMovedI <buffer>  call TPV_track_perl_var()
+        augroup END
 
-    " tt --> toggle tracking...
-    nmap <special> <buffer><silent> tt  :let g:track_perl_var_locked = ! g:track_perl_var_locked<CR>:call TPV_track_perl_var()<CR>
+        " Remember how * was set up (if it was) and change it...
+        let b:old_star_map = maparg('*')
+        nmap <special> <buffer><silent> *   :let @/ = TPV_locate_perl_var()<CR>
 
-    " Adjust keywords to cover sigils and qualifiers...
-    set iskeyword+=$
-    set iskeyword+=%
-    set iskeyword+=@-@
-    set iskeyword+=:
-    set iskeyword-=,
+        " cv --> change variable...
+        nmap <special> <buffer>         cv  :call TPV_rename_perl_var('normal')<CR>
+        vmap <special> <buffer>         cv  :call TPV_rename_perl_var('visual')<CR>gv
+
+        " gd --> goto definition...
+        nmap <special> <buffer><silent> gd  :let @/ = TPV_locate_perl_var_decl()<CR>
+
+        " tt --> toggle tracking...
+        nmap <special> <buffer><silent> tt  :let b:track_perl_var_locked = ! b:track_perl_var_locked<CR>:call TPV_track_perl_var()<CR>
+
+        " Adjust keywords to cover sigils and qualifiers...
+        setlocal iskeyword+=$
+        setlocal iskeyword+=%
+        setlocal iskeyword+=@-@
+        setlocal iskeyword+=:
+        setlocal iskeyword-=,
+
+        " Restore any frozen tracking...
+        if b:track_perl_var_locked
+            highlight! link TRACK_PERL_VAR_ACTIVE  TRACK_PERL_VAR_LOCKED
+            try
+                call matchadd('TRACK_PERL_VAR_ACTIVE', b:track_perl_var_locked_pat, 1000, s:match_id)
+            catch /./
+            endtry
+        endif
+    endif
+
+endfunction
+
+
+function! TPV__teardown ()
+
+    " Remove any active highlighting...
+    try
+        call matchdelete(s:match_id)
+    catch /./
+    endtry
 
 endfunction
 
@@ -60,9 +94,6 @@ let s:prev_varname = ""
 
 " Select an unlikely match number (e.g. the Neighbours of the Beast)...
 let s:match_id = 664668
-
-" Tracking can be locked by setting this variable
-let g:track_perl_var_locked = 0
 
 " This tracks whether plugin is displaying a message...
 let s:displaying_message = 0
@@ -87,12 +118,21 @@ let s:PUNCT_VAR_DESC = {
 \  '$('                     :  'Real group ID of the current process',
 \  '$)'                     :  'Effective group ID of the current process',
 \  '$*'                     :  'Regex multiline matching flag [removed: use /m instead]',
-\  '$+'                     :  'Final capture group of most recent regex match',
 \  '$,'                     :  'Output field separator for print() and say()',
 \  '$-'                     :  'Number of lines remaining in current output page',
 \  '$.'                     :  'Line number of last input line',
 \  '$/'                     :  'Input record separator (end-of-line marker on inputs)',
 \  '$0'                     :  'Program name',
+\  '$1'                     :  'First capture group from most recent regex match',
+\  '$2'                     :  'Second capture group from most recent regex match',
+\  '$3'                     :  'Third capture group from most recent regex match',
+\  '$4'                     :  'Fourth capture group from most recent regex match',
+\  '$5'                     :  'Fifth capture group from most recent regex match',
+\  '$6'                     :  'Sixth capture group from most recent regex match',
+\  '$7'                     :  'Seventh capture group from most recent regex match',
+\  '$8'                     :  'Eighth capture group from most recent regex match',
+\  '$9'                     :  'Ninth capture group from most recent regex match',
+\  '$+'                     :  'Final capture group of most recent regex match',
 \  '$:'                     :  'Break characters for format() lines',
 \  '$;'                     :  'Hash subscript separator for key concatenation',
 \  '$<'                     :  'Real uid of the current process',
@@ -157,6 +197,8 @@ let s:PUNCT_VAR_DESC = {
 \  '@_'                     :  'Subroutine arguments'
 \}
 
+let s:ORDINAL = { '1':'st', '2':'nd', '3':'rd' }
+
 let s:MATCH_VAR_PAT = join([
 \     '\(',
 \         '[@%]\zs[$]',
@@ -167,9 +209,13 @@ let s:MATCH_VAR_PAT = join([
 \     '\)',
 \     '\s*',
 \     '\(',
+\         '\d\+',
+\     '\|',
 \         '\K\k*',
 \     '\|',
 \         '\^\K',
+\     '\|',
+\         '[{]\d\+[}]',
 \     '\|',
 \         '[{]\^\h\w*[}]',
 \     '\|',
@@ -185,7 +231,7 @@ let s:MATCH_VAR_PAT = join([
 function! TPV_track_perl_var ()
     " Is tracking locked???
     highlight TRACK_PERL_VAR_ACTIVE   cterm=NONE
-    if g:track_perl_var_locked
+    if b:track_perl_var_locked
         highlight! link TRACK_PERL_VAR_ACTIVE  TRACK_PERL_VAR_LOCKED
         return
     else
@@ -218,33 +264,40 @@ function! TPV_track_perl_var ()
     let varname = escape(substitute( get(varparts,2), '^{\([^^].*\)}$', '\1', 'g'),'\\')
     let bracket = get(varparts,3,'')
 
+    " Do we need to bound the varname???
+    let boundary = varname =~ '\w$' ? '\>' : ''
+
     " Handle arrays: @array, $array[...], $#array...
     if sigil == '@' && bracket != '{' || sigil == '$#' || sigil =~ '[$%]' && bracket == '['
         let sigil = '@'
         let curs_var = '\C\%('
-                \ . '[$%]\_s*\%('.varname.'\>\|{'.varname.'}\)\%(\_s*[[]\)\@=\|'
-                \ . '[$]#\_s*\%('.varname.'\>\|{'.varname.'}\)\|'
-                \ .  '[@]\_s*\%('.varname.'\>\|{'.varname.'}\)\%(\_s*[{]\)\@!'
+                \ . '[$%]\_s*\%('.varname.boundary.'\|{'.varname.'}\)\%(\_s*[[]\)\@=\|'
+                \ . '[$]#\_s*\%('.varname.boundary.'\|{'.varname.'}\)\|'
+                \ .  '[@]\_s*\%('.varname.boundary.'\|{'.varname.'}\)\%(\_s*[{]\)\@!'
                 \ . '\)'
 
     " Handle hashes: %hash, $hash{...}, @hash{...}...
     elseif sigil == '%' && bracket != '[' || sigil =~ '[$@]' && bracket == '{'
         let sigil = '%'
         let curs_var = '\C\%('
-                \ . '[$@]\_s*\%('.varname.'\>\|{'.varname.'}\)\%(\_s*[{]\)\@=\|'
-                \ .  '[%]\_s*\%('.varname.'\>\|{'.varname.'}\)\%(\_s*[[]\)\@!'
+                \ . '[$@]\_s*\%('.varname.boundary.'\|{'.varname.'}\)\%(\_s*[{]\)\@=\|'
+                \ .  '[%]\_s*\%('.varname.boundary.'\|{'.varname.'}\)\%(\_s*[[]\)\@!'
                 \ . '\)'
 
     " Handle scalars: $scalar
     else
         let sigil = '$'
-        let curs_var = '\C[$]\_s*\%('.varname.'\>\|{'.varname.'}\)\%(\_s*[[{]\)\@!'
+        let curs_var = '\C[$]\_s*\%('.varname.boundary.'\|{'.varname.'}\)\%(\_s*[[{]\)\@!'
     endif
 
     " Special highlighting and descriptions for builtins...
-    let desc = get(s:PUNCT_VAR_DESC, sigil.varname, '')
+    let desc = get(s:PUNCT_VAR_DESC, sigil.varname,
+             \     varname =~ '^\d\+$'
+             \      ? varname . get(s:ORDINAL,varname[-1:],'th') . ' capture group of most recent regex match'
+             \      : ''
+             \ )
     if len(desc)
-        highlight! TRACK_PERL_VAR_ACTIVE   cterm=NONE
+        highlight!      TRACK_PERL_VAR_ACTIVE   cterm=NONE
         highlight! link TRACK_PERL_VAR_ACTIVE   TRACK_PERL_VAR_BUILTIN
 
         echohl TRACK_PERL_VAR_BUILTIN
@@ -254,7 +307,7 @@ function! TPV_track_perl_var ()
 
     " Special highlighting for undeclared variables...
     elseif varname !~ ':' && !search('^[^#]*\%(my\|our\|state\).*'.sigil.varname.'\%(\_$\|\W\@=\)', 'Wbnc')
-        highlight! TRACK_PERL_VAR_ACTIVE   cterm=NONE
+        highlight!      TRACK_PERL_VAR_ACTIVE   cterm=NONE
         highlight! link TRACK_PERL_VAR_ACTIVE   TRACK_PERL_VAR_UNDECLARED
         echohl TRACK_PERL_VAR_UNDECLARED
         echo 'Undeclared variable'
@@ -263,20 +316,48 @@ function! TPV_track_perl_var ()
 
     " Special highlighting for singleton variables...
     elseif varname !~ ':' && searchpos('\<'.curs_var, 'wn') == searchpos('\<'.curs_var,'bcwn')
-        highlight! TRACK_PERL_VAR_ACTIVE   cterm=NONE
+        highlight!      TRACK_PERL_VAR_ACTIVE   cterm=NONE
         highlight! link TRACK_PERL_VAR_ACTIVE   TRACK_PERL_VAR_UNUSED
         echohl TRACK_PERL_VAR_UNUSED
         echo 'Unused variable'
         echohl None
         let s:displaying_message = 1
 
-    elseif s:displaying_message
-        echo ""
-        let s:displaying_message = 0
+    " Special highlighting for ordinary variables...
+    else
+        highlight!      TRACK_PERL_VAR_ACTIVE   cterm=NONE
+        highlight! link TRACK_PERL_VAR_ACTIVE   TRACK_PERL_VAR
+
+        " Does this var have a descriptive comment???
+        let new_message = 0
+        let decl_pat = '\C^[^#]*\%(my\|our\|state\)\%(\s*([^)]*\|\s*\)\zs'.sigil.varname.'\%(\_$\|\W\)\@='
+        let decl_line_num = search(decl_pat, 'Wcbn')
+        if decl_line_num   " Ugly nested if's to minimize computation per cursor move...
+            let decl_line = getline(decl_line_num)
+            if decl_line =~ '\s#\s'
+                let decl_line = substitute(decl_line, '.*\s#\s', sigil.varname.': ', '')
+                if len(decl_line)
+                    echohl TRACK_PERL_VAR
+                    echo decl_line
+                    echohl None
+                    let s:displaying_message = 1
+                    let new_message = 1
+                endif
+            endif
+        endif
+
+        if s:displaying_message && !new_message
+            echo ""
+            let s:displaying_message = 0
+        endif
     endif
 
     " Set up the match for variables...
-    let g:track_perl_var = matchadd('TRACK_PERL_VAR_ACTIVE', '\<'.curs_var.'\%(\_$\|\W\@=\)', 1000, s:match_id)
+    let b:track_perl_var_locked_pat = '\<'.curs_var.'\%(\_$\|\W\@=\)'
+    try
+        call matchadd('TRACK_PERL_VAR_ACTIVE', b:track_perl_var_locked_pat, 1000, s:match_id)
+    catch /./
+    endtry
 
     " Remember the variable...
     let s:prev_sigil   = sigil
@@ -380,7 +461,7 @@ function! TPV_locate_perl_var_decl ()
     endif
 
     " Otherwise search backwards for the declaration and report the outcome...
-    let decl_pat = '\C^[^#]*\%(my\|our\|state\).*\zs'.sigil.varname.'\%(\_$\|\W\@=\)'
+    let decl_pat = '\C^[^#]*\%(my\|our\|state\)\%(\s*([^)]*\|\s*\)\zs'.sigil.varname.'\%(\_$\|\W\)\@='
     if !search(decl_pat, 'Wbs')
         echohl WarningMsg
         echo "Can't find a declaration before this point"
