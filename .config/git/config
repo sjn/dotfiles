@@ -43,8 +43,7 @@
   status = auto
   ui = true
 [core]
-  autocrlf = false
-  safecrlf = true
+  autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
 [credential]
   helper = cache --timeout=3600
