@@ -63,6 +63,7 @@
 
 [merge]
   recursive = patience
+	tool = meld
 
 [include]
   path = ~/.gitconfig.local
