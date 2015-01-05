@@ -21,9 +21,8 @@ $ vimana install <something>
 http://rubytune.com/cheat
 
 # Useful Perl modules
-strictures
 Carp::Always
-Bash::Complete
+Bash::Completion
 Text::VimColor
 Perl::Version
 Perl::Tidy
@@ -32,6 +31,8 @@ App::cpanoutdated
 App::scan_prereqs_cpanfile
 App::perlbrew
 App::cpanminus::reporter
+App::cpangrep
 Perl::Build
+Pod::Checker
 Dist::Zilla
 Data::Printer
