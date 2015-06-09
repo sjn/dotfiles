@@ -4,11 +4,19 @@
 -l=77 # 77 characters per line
 -mbl=2 # No more than 2 blank lines
 -ce # Cuddled else
--i=4 # Indentation is 4 columns
--ci=4 # Continuation indentation is 4 columns
 -vt=0 # Less vertical tightness
 -pt=2 # High parenthesis tightness
+-bbt=0 # block brace tightness
 -bt=2 # High brace tightness
 -sbt=2 # High square bracket tightness
+-cab=1 # break at all commas after => if container is open, unless oneline
 -isbc # Don't indent comments without leading space
+-nbbc # No blank before comments
+-nhsc # Don't expect hanging side comments
+-nokw # Don't outdent keywords
+-nola # Don't outdent labels
+-nolc # Don't outdent long comments
+-notr # opening tokens on right of a line
+-nsfp # no space after function
 -sot # Stack opening tokens
+-tso # Tight secret operators
