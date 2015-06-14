@@ -1,0 +1,2 @@
+wrap text: set textwidth=75
+wrap text: gq
