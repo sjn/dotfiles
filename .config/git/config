@@ -34,6 +34,7 @@
   standup   = !git log --since=yesterday --author `git config user.email` --pretty=short
   ignored   = ls-files --others -i --exclude-standard
   ready     = rebase -i @{u}
+  stashed   = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
 
 # http://www.youtube.com/watch?v=Z2ZL14WWEJI
 [color]
@@ -62,7 +63,13 @@
 
 [merge]
   recursive = patience
-	tool = meld
+  tool = meld
 
 [include]
   path = ~/.gitconfig.local
+
+[diff "zip"]
+  textconv = unzip -v
+
+[diff "bin"]
+  textconv = hexdump -v -C
