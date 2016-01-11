@@ -336,7 +336,7 @@ if [ -f $HOME/.gnupg/secring.gpg ]; then
 fi
 
 if [ -d $HOME/.rakudobrew ]; then
-   export PATH=~/.rakudobrew/bin:$PATH
+   eval "$(/home/sjn/.rakudobrew/bin/rakudobrew init -)"
 fi
 
 # Pager environment (for more useful defaults)
