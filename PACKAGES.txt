@@ -14,3 +14,4 @@ mosh
 apt-listchanges
 apt-file
 aptitude
+vim-youcompleteme
