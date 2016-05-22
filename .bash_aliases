@@ -4,7 +4,7 @@
  
 alias hex2int='perl -le "print join(qq(\n),map {hex}@ARGV)"'
 alias int2hex='perl -e printf\ \"%lx\\n\",\$_\ foreach\ @ARGV'
-alias urlencode='perl -ple "s/([^a-zA-Z0-9_.-])/uc sprintf(qq(%%%02x),ord(\$1))/eg"'
+alias urlencode='perl -ple "s/([^a-zA-Z0-9_.~-])/uc sprintf(qq(%%%02x),ord(\$1))/eg"'
 alias urldecode='perl -ple "s/%([0-9a-fA-F]{2})/chr hex(\$1)/ge"'
 alias inet_aton='perl -MSocket -ple "s/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/unpack(q{N*},inet_aton(\$1))/ge"'
 alias inet_ntoa='perl -MSocket -ple "s/(\d+)/inet_ntoa(pack(q{N*},\$1))/ge"'
