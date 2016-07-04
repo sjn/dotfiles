@@ -158,6 +158,22 @@ if has('multi_byte') " If multibyte support is available and
     endif
 endif
 
+iab i I
+iab iv I've
+iab il I'll
+iab dont don't
+iab monday Monday
+iab february February
+iab cof CoffeeScript
+
+"""" Auto-correcting Perl 6 Unicode
+if &ft =~? 'perl6'  " We run with perl6
+    let myvar=&ft
+    iab =~= ≅
+    iab (elem) ∈
+    iab << «
+    iab >> »
+endif
 
 """" When on an UTF-8 display, use fancyer characters
 if &enc =~ '^u\(tf\|cs\)' " When running in a Unicode environment,
@@ -210,6 +226,7 @@ if has("autocmd")
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
   autocmd FileType perl let g:nerdtree_tabs_open_on_console_startup=1
   map <F2> <plug>NERDTreeTabsToggle<CR>
+  let g:NERDTreeWinSize = 18
   " check perl code with :make
   autocmd FileType perl set makeprg=perl\ -c\ %\ $*
   autocmd FileType perl set errorformat=%f:%l:%m
@@ -225,6 +242,9 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.tpl set filetype=tt2
   autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
   autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
+
+  """" Treat *.adoc as asciidoc files
+  "autocmd BufNewFile,BufRead *.adoc set filetype=asciidoc
 
   """" closetag
   autocmd FileType html,ep,tt2 let b:closetag_html_style=1
@@ -368,7 +388,9 @@ imap <silent> <s-tab> <Esc>:if &modifiable && !&readonly &&
 " markdown stuff
 let g:vim_markdown_folding_disabled=1
 
-
+" spelling
+"setlocal spell spelllang=en_us
+"set mousemodel=popup
 
 " insert mode : autocomplete brackets and braces
 imap ( ()<Left>
