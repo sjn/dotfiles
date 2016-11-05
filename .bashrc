@@ -340,5 +340,5 @@ if [ -d $HOME/.rakudobrew ]; then
 fi
 
 # Pager environment (for more useful defaults)
-export PAGER="less -+C -E -R"
+export PAGER="less -+c -e -R"
 

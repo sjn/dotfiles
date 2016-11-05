@@ -24,6 +24,7 @@ packages:
 	sudo apt-get install build-essential cmake
 
 ${TARGETS}:
+	@echo Updating link for $@
 	mkdir -p $(dir $@)
 	test -f $@ && mv -f $@ $@.org || true
 	ln -fs $(HOME)/.dotfiles/$(subst ${HOME}/,,$@) $@
