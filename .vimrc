@@ -349,6 +349,8 @@ let g:hybrid_underline=1
 let g:hybrid_italic=1
 colorscheme hybrid
 
+"""" gitgutter
+let g:gitgutter_diff_args = '-b'
 
 """" delimitmate
 let delimitMate_autoclose=1
@@ -362,6 +364,10 @@ set showcmd         " Show (partial) command in status line.
 set sm              " Show matching parens
 set title
 
+"""" Vim translate
+vmap T <Plug>Translate
+vmap R <Plug>TranslateReplace
+vmap P <Plug>TranslateSpeak
 
 """" Tab Wrapper stuff from https://github.com/yanick/environment/blob/master/vim/vimrc
 function InsertTabWrapper()

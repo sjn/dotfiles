@@ -82,3 +82,6 @@
 [submodule ".vim/bundle/LargeFile"]
 	path = .vim/bundle/LargeFile
 	url = https://github.com/vim-scripts/LargeFile.git
+[submodule ".vim/bundle/vim-translator"]
+	path = .vim/bundle/vim-translator
+	url = git@github.com:blindFS/vim-translator.git
