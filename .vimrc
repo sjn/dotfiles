@@ -52,20 +52,19 @@ set nocursorcolumn
 set nocursorline
 set paste
 set preserveindent
-"set shiftwidth=2
 set shiftwidth=4
 set shiftround
 set showcmd
 set smartindent
 set softtabstop=0
-"set tabstop=2
 set tabstop=4
 set textwidth=76
 "set whichwrap=<,>,h,l,[,]
 set ww=<,>,[,],h,l,b,s,~
 set number
 set wrap
-set formatoptions=qrn1
+set linebreak
+set formatoptions+=qrn1lcj
 set clipboard=exclude:.*
 
 
@@ -74,15 +73,12 @@ set clipboard=exclude:.*
 set list!
 set listchars=trail:.,tab:\ \ ,nbsp:%
 
-""""" Titlebar
-set title " Turn on titlebar support
-
 """" Searching and Patterns
-set ignorecase " Default to using case insensitive searches,
-set smartcase " unless uppercase letters are used in the regex.
-set infercase " Handle case in a smart way in autocompletes
-set hlsearch " Highlight searches by default.
-set incsearch " Incrementally search while typing a /regex
+set ignorecase  " Default to using case insensitive searches,
+set smartcase   " unless uppercase letters are used in the regex.
+set infercase   " Handle case in a smart way in autocompletes
+set hlsearch    " Highlight searches by default.
+set incsearch   " Incrementally search while typing a /regex
 set showfulltag " Show full tag completions
 set complete=.,w,b,u,U,d,k,t " Better completion, full tags last, no ',i'
 nnoremap <CR> :noh<CR><CR> " Clear searches with <CR>
@@ -142,10 +138,6 @@ set timeoutlen=2000 " Wait 2 seconds before timing out a mapping
 set ttimeoutlen=100 " and only 100 ms before timing out on a keypress.
 set lazyredraw      " Avoid redrawing the screen mid-command.
 set ttyscroll=3     " Prefer redraw to scrolling for more than 3 lines
-
-
-""""" Titlebar
-set title " Turn on titlebar support
 
 
 """"" Encoding/Multibyte
@@ -336,6 +328,8 @@ if version >= 701
   set tags=./tags,../tags
 endif
 
+"""" set colours
+set t_Co=256
 
 """" solarized
 "set background=light
@@ -362,6 +356,8 @@ let g:hybrid_underline=1
 let g:hybrid_italic=1
 colorscheme hybrid
 
+"""" gitgutter
+let g:gitgutter_diff_args = '-b'
 
 """" delimitmate
 let delimitMate_autoclose=1
@@ -372,9 +368,13 @@ let g:use_zen_complete_tag=1
 set history=512     " Set history size
 set viminfo='10,\"100,:20,%,n~/.viminfo
 set showcmd         " Show (partial) command in status line.
-set sm              " Show matching parens
+set showmatch       " Show matching parens
 set title
 
+"""" Vim translate
+vmap T <Plug>Translate
+vmap R <Plug>TranslateReplace
+vmap P <Plug>TranslateSpeak
 
 """" Tab Wrapper stuff from https://github.com/yanick/environment/blob/master/vim/vimrc
 function InsertTabWrapper()

@@ -342,3 +342,8 @@ fi
 # Pager environment (for more useful defaults)
 export PAGER="less -+c -e -R"
 
+if [ -d $HOME/.bashrc.d ]; then
+   for rcfile in $HOME/.bashrc.d/*.sh; do
+      source $rcfile
+   done
+fi
