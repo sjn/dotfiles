@@ -1,3 +1,4 @@
+"""" vim: ts=2 et
 
 """" Only do stuff if we have a recent version of vim
 if v:version >= 700
@@ -242,6 +243,18 @@ if has("autocmd")
   autocmd BufNewFile,BufRead *.tpl set filetype=tt2
   autocmd BufNewFile,BufRead *.ttml set filetype=tt2html
   autocmd BufNewFile,BufRead *.conf.tpl set filetype=tt2.apache
+
+  """" Treat *.pl6 as Perl 6 files, with a skeleton template
+  au BufNewFile *.pl6 0r ~/.vim/perl6/newfile.skel | let IndentStyle = "perl6"
+  function! InsertSub()
+    r~/.vim/perl6/sub.skel
+  endfunction
+  nmap <A-s> :call InsertSub()<CR>
+
+
+  """" Treat HTML and XML files
+  au BufNewFile *.xml 0r ~/.vim/xml.skel | let IndentStyle = "xml"
+  au BufNewFile *.html 0r ~/.vim/html.skel | let IndentStyle = "html"
 
   """" Treat *.adoc as asciidoc files
   "autocmd BufNewFile,BufRead *.adoc set filetype=asciidoc
