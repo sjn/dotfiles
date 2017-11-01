@@ -155,8 +155,6 @@ iab i I
 iab iv I've
 iab il I'll
 iab dont don't
-iab monday Monday
-iab february February
 iab cof CoffeeScript
 
 """" Auto-correcting Perl 6 Unicode
@@ -166,6 +164,7 @@ if &ft =~? 'perl6'  " We run with perl6
     iab (elem) ∈
     iab << «
     iab >> »
+    set expandtab
 endif
 
 """" When on an UTF-8 display, use fancyer characters
@@ -205,6 +204,25 @@ if has("autocmd")
 
   " Save on lost focus
   autocmd FocusLost * :wa
+
+  """" Perl 6 stuff
+  autocmd FileType perl6 set autoindent
+  autocmd FileType perl6 set equalprg=perltidy
+  autocmd FileType perl6 set expandtab
+  autocmd FileType perl6 set shiftwidth=4
+  autocmd FileType perl6 set showmatch
+  autocmd FileType perl6 set smartindent
+  autocmd FileType perl6 set softtabstop=0
+  "autocmd FileType perl set softtabstop=4
+  autocmd FileType perl6 set tabstop=4
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+  autocmd FileType perl6 let g:nerdtree_tabs_open_on_console_startup=1
+  map <F2> <plug>NERDTreeTabsToggle<CR>
+  let g:NERDTreeWinSize = 18
+  " check perl code with :make
+  autocmd FileType perl6 set makeprg=perl\ -c\ %\ $*
+  autocmd FileType perl6 set errorformat=%f:%l:%m
+  autocmd FileType perl6 set autowrite
 
   """" Perl stuff
   autocmd FileType perl set autoindent
@@ -359,8 +377,13 @@ colorscheme hybrid
 """" gitgutter
 let g:gitgutter_diff_args = '-b'
 
-"""" delimitmate
-let delimitMate_autoclose=1
+"""" delimitMate
+let g:delimitMate_matchpairs = "(:),[:],{:},｢:｣,“:”,«:»"
+"let g:delimitMate_autoclose = 1
+let g:delimitMate_balance_matchpairs = 1
+let g:delimitMate_smart_matchpairs = 1
+au FileType perl,perl6 let b:delimitMate_autoclose = 1
+
 
 let g:use_zen_complete_tag=1
 
@@ -386,7 +409,23 @@ function InsertTabWrapper()
    endif
 endfunction
 
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+"""" Create dirs when saving a new file
+"""" https://stackoverflow.com/questions/4292733/vim-creating-parent-directories-on-save
+function s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+
+" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 " cute ai toggle
 map ,<TAB> :set ai!<CR>:set ai?<CR>
 

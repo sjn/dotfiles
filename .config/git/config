@@ -75,3 +75,11 @@
 
 [diff "bin"]
   textconv = hexdump -v -C
+
+# man git-hub
+[hub]
+  username=sjn
+
+# META6::bin
+[credential]
+  username = sjn

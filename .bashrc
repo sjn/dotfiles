@@ -69,7 +69,7 @@ fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+HISTCONTROL=$HISTCONTROL${HISTCONTROL+:}erasedups
 # ... or force ignoredups and ignorespace
 #HISTCONTROL=ignoreboth
 
@@ -78,8 +78,8 @@ shopt -s histappend
 shopt -s cmdhist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=3000
+HISTSIZE=100000
+HISTFILESIZE=30000
 HISTTIMEFORMAT=yes
 
 # check the window size after each command and, if necessary,
@@ -337,6 +337,10 @@ fi
 
 if [ -d $HOME/.rakudobrew ]; then
    eval "$(/home/sjn/.rakudobrew/bin/rakudobrew init -)"
+fi
+
+if [ -d $HOME/.rakudo/install/bin ]; then
+   PATH="${HOME}/.rakudo/install/bin:${HOME}/.rakudo/install/share/perl6/site/bin:${PATH}"
 fi
 
 # Pager environment (for more useful defaults)
