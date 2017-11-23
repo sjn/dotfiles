@@ -155,5 +155,18 @@ function push-dotfiles-to () {
 #    echo "No completion for dotfile functions: $BASH_COMPLETION"
 #fi
 
+## tmux session juggling
+## https://wiki.archlinux.org/index.php/tmux#Clients_simultaneously_interacting_with_various_windows_of_a_session
+
+function rsc() {
+  CLIENTID=$1.`date +%S`
+  tmux new-session -d -t $1 -s $CLIENTID \; set-option destroy-unattached \; attach-session -t $CLIENTID
+}
+
+function mksc() {
+  tmux new-session -d -s $1
+  rsc $1
+}
+
 
 # vim:ft=sh
