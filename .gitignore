@@ -6,3 +6,4 @@
 .gitconfig
 *~
 .vim/spell
+.ssh/config.d/
