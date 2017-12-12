@@ -9,7 +9,7 @@ $ git clone git@github.com:sjn/dotfiles.git ~/.dotfiles
 $ cd ~/.dotfiles
 $ make
 
-# Installing vim(1) modules
+# (OPTIONAL) Installing vim(1) modules
 
 $ cpanm Vimana
 $ vimana update
