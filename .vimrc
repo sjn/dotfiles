@@ -207,7 +207,6 @@ if has("autocmd")
 
   """" Perl 6 stuff
   autocmd FileType perl6 set autoindent
-  autocmd FileType perl6 set equalprg=perltidy
   autocmd FileType perl6 set expandtab
   autocmd FileType perl6 set shiftwidth=4
   autocmd FileType perl6 set showmatch
@@ -242,6 +241,16 @@ if has("autocmd")
   autocmd FileType perl set makeprg=perl\ -c\ %\ $*
   autocmd FileType perl set errorformat=%f:%l:%m
   autocmd FileType perl set autowrite
+
+  """" JSON stuff
+  autocmd FileType json set autoindent
+  autocmd FileType json set expandtab
+  autocmd FileType json set shiftwidth=2
+  autocmd FileType json set showmatch
+  autocmd FileType json set smartindent
+  autocmd FileType json set softtabstop=0
+  "autocmd FileType json set softtabstop=4
+  autocmd FileType json set tabstop=2
 
   """" perlomni key-combo is annoying when using screen -e ^Oo
   "autocmd FileType perl nnoremap <C-x><C-o> <C-x>-
