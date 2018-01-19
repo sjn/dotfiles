@@ -75,12 +75,15 @@ HISTCONTROL=$HISTCONTROL${HISTCONTROL+:}erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
+shopt -s histreedit
+shopt -u histverify
 shopt -s cmdhist
+shopt -u lithist
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=100000
 HISTFILESIZE=30000
-HISTTIMEFORMAT=yes
+HISTTIMEFORMAT="%s "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -257,7 +260,8 @@ if [ "$PS1" ]; then
     case $TERM in
     screen*|gnome*|xterm*|rxvt*)
         TTY=`tty`
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"; history -a; history -n'
+        #PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}:${PWD/"${HOME}"/~} (${TTY/\/dev\//})\007"; history -a; history -n'
+        PROMPT_COMMAND='history -a; history -n'
         ;;
     *)
         ;;
@@ -268,9 +272,9 @@ if [ "$PS1" ]; then
         . $HOME/.git-completion.bash
         export GIT_PS1_SHOWUPSTREAM="auto"
         export GIT_PS1_SHOWDIRTYSTATE="yes"
-        PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]\$(__git_ps1 ' %s')\[\033[0m\] \W \$?\$ "
+        export PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]\$(__git_ps1 ' %s')\[\033[0m\] \W \$\?\$ "
     else
-        PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\] \W \$?\$ "
+        export PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\] \W \$\?\$ "
     fi
 
     set show-all-if-ambiguous on
