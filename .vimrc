@@ -191,6 +191,9 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+"""" Allow for easy use of keyboard macro replays (q -> (recording) -> q -> Q)
+noremap Q @q
+
 
 if has("autocmd")
 
@@ -338,7 +341,7 @@ vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
 let perl_include_pod = 1 "include pod.vim syntax file with perl.vim"
 let perl_extended_vars = 1 "highlight complex expressions such as @{[$x, $y]}"
 let perl_sync_dist = 250 "use more context for highlighting"
-
+let perl_sub_signatures = 1
 
 """" supertab
 "let g:SuperTabDefaultCompletionType = "context"

@@ -272,9 +272,9 @@ if [ "$PS1" ]; then
         . $HOME/.git-completion.bash
         export GIT_PS1_SHOWUPSTREAM="auto"
         export GIT_PS1_SHOWDIRTYSTATE="yes"
-        export PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]\$(__git_ps1 ' %s')\[\033[0m\] \W \$\?\$ "
+        export PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]\$(__git_ps1 ' %s')\[\033[0m\] \W \$?\$ "
     else
-        export PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\] \W \$\?\$ "
+        export PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\] \W \$?\$ "
     fi
 
     set show-all-if-ambiguous on
