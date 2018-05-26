@@ -194,6 +194,23 @@ vnoremap <F1> <ESC>
 """" Allow for easy use of keyboard macro replays (q -> (recording) -> q -> Q)
 noremap Q @q
 
+"""" Add some simple method renaming support, as described in
+"""" https://stackoverflow.com/questions/597687/changing-variable-names-in-vim#answers-header
+" For local replace
+nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
+
+" For global replace
+nnoremap gR gD:%s/<C-R>///gc<left><left><left>
+
+"function! Refactor()
+"    call inputsave()
+"    let @z=input("What do you want to rename '" . @z . "' to? ")
+"    call inputrestore()
+"endfunction
+
+"" Locally (local to block) rename a variable
+"nmap <Leader>rf "zyiw:call Refactor()<cr>mx:silent! norm gd<cr>[{V%:s/<C-R>//<c-r>z/g<cr>`x
+
 
 if has("autocmd")
 
