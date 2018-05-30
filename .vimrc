@@ -356,7 +356,6 @@ vnoremap <silent> _t :!perltidy -q<Enter>
 nnoremap <silent> _d :.!perl -MO=Deparse 2>/dev/null<cr>
 vnoremap <silent> _d :!perl -MO=Deparse 2>/dev/null<cr>
 let perl_include_pod = 1 "include pod.vim syntax file with perl.vim"
-let perl_extended_vars = 1 "highlight complex expressions such as @{[$x, $y]}"
 let perl_sync_dist = 250 "use more context for highlighting"
 let perl_sub_signatures = 1
 
@@ -377,10 +376,10 @@ endif
 
 """" set colours
 set t_Co=256
+set background=light
+"set background=dark
 
 """" solarized
-"set background=light
-set background=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="high"
@@ -401,7 +400,14 @@ let g:hybrid_degrade=1
 let g:hybrid_bold=1
 let g:hybrid_underline=1
 let g:hybrid_italic=1
-colorscheme hybrid
+"colorscheme hybrid
+
+
+" vim-airline
+"let g:airline_theme='papercolor'
+"set background=dark
+colorscheme PaperColor
+
 
 """" gitgutter
 let g:gitgutter_diff_args = '-b'
