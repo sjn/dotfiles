@@ -324,6 +324,15 @@ if [ -d $HOME/.rakudo/install/bin ]; then
    PATH="${HOME}/.rakudo/install/bin:${HOME}/.rakudo/install/share/perl6/site/bin:${PATH}"
 fi
 
+if [ -d $HOME/.rakudo/install/bin ]; then
+   PATH="${HOME}/.rakudo/install/bin:${HOME}/.rakudo/install/share/perl6/site/bin:${PATH}"
+fi
+
+if [ -d $HOME/.p6env/bin ]; then
+   PATH="${HOME}/.p6env/bin:${PATH}"
+   eval "$(p6env init -)"
+fi
+
 # Pager environment (for more useful defaults)
 export PAGER="less -+c -e -R"
 
