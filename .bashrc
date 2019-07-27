@@ -60,7 +60,7 @@ shopt -u lithist
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=100000
 HISTFILESIZE=30000
-HISTTIMEFORMAT="%s "
+HISTTIMEFORMAT=%s
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -331,6 +331,10 @@ fi
 if [ -d $HOME/.p6env/bin ]; then
    PATH="${HOME}/.p6env/bin:${PATH}"
    eval "$(p6env init -)"
+fi
+
+if [ -d $HOME/.local/bin ]; then
+   PATH="${HOME}/.local/bin:${PATH}"
 fi
 
 # Pager environment (for more useful defaults)
