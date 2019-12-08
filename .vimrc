@@ -406,7 +406,7 @@ let g:hybrid_italic=1
 " vim-airline
 "let g:airline_theme='papercolor'
 "set background=dark
-colorscheme PaperColor
+"colorscheme PaperColor
 
 
 """" gitgutter
