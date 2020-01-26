@@ -82,3 +82,6 @@
 [submodule ".vim/bundle/papercolor-theme"]
 	path = .vim/bundle/papercolor-theme
 	url = git@github.com:NLKNguyen/papercolor-theme.git
+[submodule ".vim/bundle/vim-raku"]
+	path = .vim/bundle/vim-raku
+	url = https://github.com/Raku/vim-raku.git
