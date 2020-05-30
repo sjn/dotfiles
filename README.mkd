@@ -26,12 +26,14 @@ Bash::Completion
 Text::VimColor
 Perl::Version
 Perl::Tidy
+Pod::Tidy
 App::cpanlistchanges
 App::cpanoutdated
 App::scan_prereqs_cpanfile
 App::perlbrew
 App::cpanminus::reporter
 App::cpangrep
+App::plx
 Perl::Build
 Pod::Checker
 Dist::Zilla
