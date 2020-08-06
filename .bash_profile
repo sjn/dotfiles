@@ -19,4 +19,6 @@ if [ -d "$HOME/perl${MY_PERL_VERSION}/lib/perl5" -o -d "$HOME/perl5/lib/perl5" ]
 fi
 umask 022
 
+if [ -e /home/sjn/.nix-profile/etc/profile.d/nix.sh ]; then . /home/sjn/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
 # vim:filetype=sh
