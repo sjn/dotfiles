@@ -3,14 +3,6 @@
 # for examples
 
 
-# load original .bashrc, if it exists
-if [ -f ~/.bashrc.org ]; then
-    if "$SJN_BASHRC_LOADED" = "1"; then return; fi
-    # . ~/.bashrc.org
-    echo "BASHRC.ORG LOADING"
-    export SJN_BASHRC_LOADED=1
-fi
-
 # set PATH so it includes user's private bin if it exists
 if [ -d ~/bin ] ; then
     PATH=~/bin:"${PATH}"
