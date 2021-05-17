@@ -83,3 +83,5 @@
 # META6::bin
 [credential]
   username = sjn
+[pull]
+	rebase = false
