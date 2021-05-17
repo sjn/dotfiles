@@ -16,3 +16,5 @@ apt-file
 aptitude
 vim-youcompleteme
 rlwrap
+fonts-noto
+xdg-utils
