@@ -97,7 +97,7 @@ alias massacre='kill -1 -1'
 #
 # Annet gurba
 #
-alias go=gnome-open
+alias go=xdg-open
 
 #
 # Functions
