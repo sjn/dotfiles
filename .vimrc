@@ -157,13 +157,10 @@ iab il I'll
 iab dont don't
 iab cof CoffeeScript
 
-"""" Auto-correcting Perl 6 Unicode
+"""" Auto-correcting Raku Unicode
 if &ft =~? 'perl6'  " We run with perl6
+    let g:raku_unicode_abbrevs = 1
     let myvar=&ft
-    iab =~= ≅
-    iab (elem) ∈
-    iab << «
-    iab >> »
     set expandtab
 endif
 
