@@ -170,7 +170,7 @@ if &enc =~ '^u\(tf\|cs\)' " When running in a Unicode environment,
     let s:arr = nr2char(9655) " using U+25B7 (▷) for an arrow, and
     let s:dot = nr2char(8901) " using U+22C5 (⋅) for a very light dot,
     " display tabs as an arrow followed by some dots (▷⋅⋅⋅⋅⋅⋅⋅),
-    exe "set listchars=tab:" . s:arr . s:dot
+    "exe "set listchars=tab:" . s:arr . s:dot
     " and display trailing and non-breaking spaces as U+22C5 (⋅).
     exe "set listchars+=trail:" . s:dot
     exe "set listchars+=nbsp:" . s:dot
@@ -332,7 +332,7 @@ endif
 "match OverLength /\>%79v.\+/
 
 if exists('+colorcolumn')
-    set colorcolumn=78
+    set colorcolumn=0
 endif
 
 

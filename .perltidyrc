@@ -1,14 +1,17 @@
 -pbp # Start with Perl Best Practices
 -w # Show all warnings
--iob # Ignore old breakpoints
--l=77 # 77 characters per line
+-l=120 # 130 characters per line
 -mbl=2 # No more than 2 blank lines
--ce # Cuddled else
--vt=0 # Less vertical tightness
+#-ce # Cuddled else
+-vt=1 # Less vertical tightness
 -pt=2 # High parenthesis tightness
--bbt=0 # block brace tightness
--bt=2 # High brace tightness
+#-bbt=0 # block brace tightness
+-bt=1 # High brace tightness
 -sbt=2 # High square bracket tightness
+-vtc=1
+-lp
+-boc
+-wn # Weld nested containers
 -cab=1 # break at all commas after => if container is open, unless oneline
 -isbc # Don't indent comments without leading space
 -nbbc # No blank before comments
@@ -20,3 +23,5 @@
 -nsfp # no space after function
 -sot # Stack opening tokens
 -tso # Tight secret operators
+-t # We use tabs at husleie.no
+-et=4

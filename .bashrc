@@ -24,8 +24,8 @@ if [ -d /sbin ]; then
     PATH="${PATH}":/sbin
 fi
 
-if [ -d $HOME/perl6/bin ]; then
-    PATH="${PATH}":$HOME/perl6/bin
+if [ -d $HOME/raku/bin ]; then
+    PATH="${PATH}":$HOME/raku/bin
 fi
 
 # if we have a dumb terminal, let's not do all the preparations below
@@ -178,14 +178,6 @@ else
 fi
 unset color_prompt force_color_prompt
 
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-#    ;;
-#*)
-#    ;;
-#esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -264,15 +256,24 @@ if [ "$PS1" ]; then
 
 fi
 
-for perllibdir in $HOME/perl5; do
-    if [ -d $perllibdir/lib/perl5 ]; then
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*|xterm-256color)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
 
-        eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
-        export PATH=${PATH}:$perllibdir/bin
-        break
-
-    fi
-done
+#for perllibdir in $HOME/perl5; do
+#    if [ -d $perllibdir/lib/perl5 ]; then
+#
+#        eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
+#        export PATH=${PATH}:$perllibdir/bin
+#        break
+#
+#    fi
+#done
 
 if [ -z "$PERLBREW_ROOT" -a -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 
@@ -280,20 +281,15 @@ if [ -z "$PERLBREW_ROOT" -a -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 
 fi
 
-for cpanroot in /var/store/CPAN /opt/minicpan/CPAN /home/minicpan/CPAN; do
-    if [ -d $cpanroot ]; then
-        export PERL_CPANM_OPT="--mirror file://$cpanroot"
-        break
-    fi
-done
+#for cpanroot in /var/store/CPAN /opt/minicpan/CPAN /home/minicpan/CPAN; do
+#    if [ -d $cpanroot ]; then
+#        export PERL_CPANM_OPT="--mirror file://$cpanroot"
+#        break
+#    fi
+#done
 
 if [ -f $HOME/src/runbox/conf/home/development/.perltidyrc ]; then
     export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
-fi
-
-# Bash::Complete
-if [ -f $HOME/perl5/bin/setup-bash-complete ]; then
-    source $HOME/perl5/bin/setup-bash-complete
 fi
 
 # Komodo stuff
@@ -319,10 +315,6 @@ if [ -d $HOME/.rakudo/install/bin ]; then
    PATH="${HOME}/.rakudo/install/bin:${HOME}/.rakudo/install/share/perl6/site/bin:${PATH}"
 fi
 
-if [ -d $HOME/.rakudo/install/bin ]; then
-   PATH="${HOME}/.rakudo/install/bin:${HOME}/.rakudo/install/share/perl6/site/bin:${PATH}"
-fi
-
 if [ -d $HOME/.p6env/bin ]; then
    PATH="${HOME}/.p6env/bin:${PATH}"
    eval "$(p6env init -)"
@@ -339,4 +331,9 @@ if [ -d $HOME/.bashrc.d ]; then
    for rcfile in $HOME/.bashrc.d/*.sh; do
       source $rcfile
    done
+fi
+
+# Node's "n" install tool
+if [ -d $HOME/.node-n ]; then
+   export N_PREFIX="$HOME/.node-n"
 fi

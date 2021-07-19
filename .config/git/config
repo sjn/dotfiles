@@ -5,7 +5,7 @@
 # vim:ts=2
 [user]
   name = Salve J. Nilsen
-  email = sjn@cpan.org
+  email = sjn@husleie.no
 [alias]
   ci        = commit
   st        = status
@@ -28,6 +28,7 @@
   lolr      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   lol       = log --graph --decorate --pretty=oneline --abbrev-commit
   lola      = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  lols      = log --graph --decorate --pretty=oneline --abbrev-commit --exclude=staging
   ours      = "!f() { git checkout --ours $@ && git add $@; }; f"
   theirs    = "!f() { git checkout --theirs $@ && git add $@; }; f"
   snapshot  = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
@@ -49,7 +50,8 @@
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
 [credential]
-  helper = cache --timeout=3600
+# Requires compilation
+	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
 [diff]
 # algorithm = histogram
   algorithm = patience
@@ -85,3 +87,5 @@
   username = sjn
 [pull]
 	rebase = false
+[init]
+	defaultBranch = master
