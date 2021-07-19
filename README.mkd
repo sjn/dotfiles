@@ -38,3 +38,5 @@ Perl::Build
 Pod::Checker
 Dist::Zilla
 Data::Printer
+Minilla --with-recommends
+Spellunker
