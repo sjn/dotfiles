@@ -13,8 +13,8 @@ TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 all: submodules symlinks
 
 submodules: init
-	git submodule foreach --recursive git checkout
-	git submodule foreach --recursive git pull
+	git submodule foreach --recursive git checkout master
+	git submodule foreach --recursive git pull --ff-only
 
 symlinks: ${TARGETS} .bashrc
 
