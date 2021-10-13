@@ -18,3 +18,4 @@ vim-youcompleteme
 rlwrap
 fonts-noto
 xdg-utils
+key-mapper
