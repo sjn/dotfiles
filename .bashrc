@@ -265,15 +265,15 @@ xterm*|rxvt*|xterm-256color)
     ;;
 esac
 
-#for perllibdir in $HOME/perl5; do
-#    if [ -d $perllibdir/lib/perl5 ]; then
-#
-#        eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
-#        export PATH=${PATH}:$perllibdir/bin
-#        break
-#
-#    fi
-#done
+for perllibdir in $HOME/perl5; do
+    if [ -d $perllibdir/lib/perl5 ]; then
+
+        eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
+        export PATH=${PATH}:$perllibdir/bin
+        break
+
+    fi
+done
 
 if [ -z "$PERLBREW_ROOT" -a -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 
