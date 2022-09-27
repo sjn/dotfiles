@@ -374,8 +374,8 @@ endif
 
 """" set colours
 set t_Co=256
-set background=light
-"set background=dark
+"set background=light
+set background=dark
 
 """" solarized
 let g:solarized_termtrans=1
@@ -394,12 +394,14 @@ let g:hybrid_termtrans=1
 let g:hybrid_termcolors=256
 let g:hybrid_contrast="high"
 let g:hybrid_visibility="high"
-let g:hybrid_degrade=1
+let g:hybrid_degrade=0
 let g:hybrid_bold=1
 let g:hybrid_underline=1
 let g:hybrid_italic=1
-"colorscheme hybrid
-
+if (has("termguicolors"))
+  set termguicolors
+endif
+colorscheme hybrid
 
 " vim-airline
 "let g:airline_theme='papercolor'
