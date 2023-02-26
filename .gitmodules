@@ -79,3 +79,6 @@
 [submodule ".vim/bundle/vim-raku"]
 	path = .vim/bundle/vim-raku
 	url = https://github.com/Raku/vim-raku.git
+[submodule ".vim/bundle/ale"]
+	path = .vim/bundle/ale
+	url = https://github.com/dense-analysis/ale

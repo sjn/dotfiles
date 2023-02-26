@@ -40,3 +40,4 @@ Dist::Zilla
 Data::Printer
 Minilla --with-recommends
 Spellunker
+Dependencies::Searcher

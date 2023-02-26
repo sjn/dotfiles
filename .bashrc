@@ -152,6 +152,7 @@ esac
 
 export LANG=nb_NO.utf8
 export LOCALE=nb_NO.utf8
+export LC_MESSAGES=C
 export LESSCHARSET='utf-8'
 
 
@@ -205,6 +206,10 @@ fi
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
+fi
+
+if [ -d $HOME/.bash_completion.d ] && ! shopt -oq posix; then
+    . $HOME/.bash_completion.d/bash_completion.sh
 fi
 
 
@@ -265,22 +270,6 @@ xterm*|rxvt*|xterm-256color)
     ;;
 esac
 
-#for perllibdir in $HOME/perl5; do
-#    if [ -d $perllibdir/lib/perl5 ]; then
-#
-#        eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
-#        export PATH=${PATH}:$perllibdir/bin
-#        break
-#
-#    fi
-#done
-
-if [ -z "$PERLBREW_ROOT" -a -f $HOME/perl5/perlbrew/etc/bashrc ]; then
-
-   source $HOME/perl5/perlbrew/etc/bashrc
-
-fi
-
 #for cpanroot in /var/store/CPAN /opt/minicpan/CPAN /home/minicpan/CPAN; do
 #    if [ -d $cpanroot ]; then
 #        export PERL_CPANM_OPT="--mirror file://$cpanroot"
@@ -288,8 +277,8 @@ fi
 #    fi
 #done
 
-if [ -f $HOME/src/runbox/conf/home/development/.perltidyrc ]; then
-    export PERLTIDY=$HOME/src/runbox/conf/home/development/.perltidyrc
+if [ -f $HOME/src/.perltidyrc ]; then
+    export PERLTIDY=$HOME/src/.perltidyrc
 fi
 
 # Komodo stuff
@@ -299,8 +288,27 @@ fi
 
 # plenv(1) path (perlbrew alternative)
 if [ -f $HOME/.plenv/bin/plenv ]; then
+
    export PATH="$HOME/.plenv/bin:$PATH"
    eval "$(plenv init -)"
+
+
+elif [ -f $HOME/perl5 ]; then
+
+    for perllibdir in $HOME/perl5; do
+        if [ -d $perllibdir/lib/perl5 ]; then
+    
+            eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
+            export PATH=${PATH}:$perllibdir/bin
+            break
+    
+        fi
+    done
+
+elif [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
+
+   source $HOME/perl5/perlbrew/etc/bashrc
+
 fi
 
 if [ -f $HOME/.gnupg/secring.gpg ]; then
