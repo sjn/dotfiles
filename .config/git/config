@@ -5,7 +5,7 @@
 # vim:ts=2
 [user]
   name = Salve J. Nilsen
-  email = sjn@husleie.no
+  email = sjn@cpan.org
 [alias]
   ci        = commit
   st        = status
@@ -76,6 +76,9 @@
   textconv = unzip -v
 
 [diff "bin"]
+  textconv = hexdump -v -C
+
+[diff "pdf"]
   textconv = hexdump -v -C
 
 # man git-hub
