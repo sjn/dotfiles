@@ -319,8 +319,8 @@ if [ -d $HOME/.rakudobrew ]; then
    eval "$(/home/sjn/.rakudobrew/bin/rakudobrew init -)"
 fi
 
-if [ -d $HOME/.rakudo/install/bin ]; then
-   PATH="${HOME}/.rakudo/install/bin:${HOME}/.rakudo/install/share/perl6/site/bin:${PATH}"
+if [ -d $HOME/.rakudo/bin ]; then
+   PATH="${HOME}/.rakudo/bin:${HOME}/.rakudo/share/perl6/site/bin:${PATH}"
 fi
 
 if [ -d $HOME/.p6env/bin ]; then

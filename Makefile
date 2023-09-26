@@ -19,7 +19,7 @@ submodules: init
 symlinks: ${TARGETS} .bashrc
 
 init:
-	git submodule update --init --recursive
+	git submodule update --init --recursive --force
 
 packages:
 	sudo apt-get install build-essential cmake
