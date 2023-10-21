@@ -24,8 +24,9 @@ if [ -d /sbin ]; then
     PATH="${PATH}":/sbin
 fi
 
-if [ -d $HOME/raku/bin ]; then
-    PATH="${PATH}":$HOME/raku/bin
+if [ -d /opt/rakudo/bin ]; then
+	PATH="${PATH}:/opt/rakudo/bin:/opt/rakudo/share/perl6/site/bin:/opt/rakudo/share/perl6/core/bin"
+	export PATH
 fi
 
 # if we have a dumb terminal, let's not do all the preparations below
