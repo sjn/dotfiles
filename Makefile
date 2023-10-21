@@ -13,13 +13,13 @@ TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 all: submodules symlinks
 
 submodules: init
-	git submodule foreach --recursive git checkout master
-	git submodule foreach --recursive git pull --ff-only
+	git submodule foreach --recursive git fetch
+	git submodule update --recursive
 
 symlinks: ${TARGETS} .bashrc
 
 init:
-	git submodule update --init --recursive
+	git submodule update --init --recursive --force
 
 packages:
 	sudo apt-get install build-essential cmake

@@ -19,3 +19,5 @@ rlwrap
 fonts-noto
 xdg-utils
 keymapper
+# https://github.com/norihiro/obs-color-monitor/releases/tag/0.4.4
+obs-color-monitor
