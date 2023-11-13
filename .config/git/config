@@ -3,9 +3,6 @@
 #
 #
 # vim:ts=2
-[user]
-  name = Salve J. Nilsen
-  email = sjn@cpan.org
 [alias]
   ci        = commit
   st        = status
@@ -25,7 +22,7 @@
   add-unmerged  = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
   lg        = log -p
   who       = shortlog -s --
-  lolr      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lolr      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cs) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   lol       = log --graph --decorate --pretty=oneline --abbrev-commit
   lola      = log --graph --decorate --pretty=oneline --abbrev-commit --all
   lols      = log --graph --decorate --pretty=oneline --abbrev-commit --exclude=staging
@@ -81,20 +78,9 @@
 [diff "pdf"]
   textconv = hexdump -v -C
 
-# man git-hub
-[hub]
-  username=sjn
-
-# META6::bin
-[credential]
-  username = sjn
 [pull]
 	rebase = false
+
 [init]
 	defaultBranch = main
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
+

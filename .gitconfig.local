@@ -1,0 +1,23 @@
+# Examples and ideas are stolen from several sources on github. Feel free
+# to steal them yourself! :)
+#
+# vim:ts=2
+[user]
+	name = Salve J. Nilsen
+	email = sjn@cpan.org
+
+# git-hub
+[hub]
+  username=sjn
+
+# gh
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[safe]
+	directory = /opt/app1
+	directory = /srv/app1

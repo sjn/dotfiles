@@ -199,18 +199,18 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+    source /etc/bash_completion
 fi
 
 if [ -d $HOME/.bash_completion.d ] && ! shopt -oq posix; then
-    . $HOME/.bash_completion.d/bash_completion.sh
+    source $HOME/.bash_completion.d/bash_completion.sh
 fi
 
 
@@ -238,8 +238,8 @@ if [ "$PS1" ]; then
     esac
 
     if [ -f $HOME/.git-prompt.bash -a -f $HOME/.git-completion.bash ] && ! shopt -oq posix && which git 2>/dev/null >/dev/null ; then
-        . $HOME/.git-prompt.bash
-        . $HOME/.git-completion.bash
+        source $HOME/.git-prompt.bash
+        source $HOME/.git-completion.bash
         export GIT_PS1_SHOWUPSTREAM="auto"
         export GIT_PS1_SHOWDIRTYSTATE="yes"
         export PS1="${debian_chroot:+($debian_chroot)}\t \[\033[1;31m\]\u@\h\[\033[0m\]\[\033[1;32m\]\$(__git_ps1 ' %s')\[\033[0m\] \W \$?\$ "
@@ -294,21 +294,19 @@ if [ -f $HOME/.plenv/bin/plenv ]; then
    eval "$(plenv init -)"
 
 
+elif [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
+
+   source $HOME/perl5/perlbrew/etc/bashrc
+
 elif [ -f $HOME/perl5 ]; then
 
     for perllibdir in $HOME/perl5; do
         if [ -d $perllibdir/lib/perl5 ]; then
-    
-            eval $(perl -I$perllibdir/lib/perl5 -Mlocal::lib)
+            eval "$(perl -I$perllibdir/lib/perl5 -Mlocal::lib)"
             export PATH=${PATH}:$perllibdir/bin
             break
-    
         fi
     done
-
-elif [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
-
-   source $HOME/perl5/perlbrew/etc/bashrc
 
 fi
 
@@ -320,13 +318,15 @@ if [ -d $HOME/.rakudobrew ]; then
    eval "$(/home/sjn/.rakudobrew/bin/rakudobrew init -)"
 fi
 
-if [ -d $HOME/.rakudo/bin ]; then
-   PATH="${HOME}/.rakudo/bin:${HOME}/.rakudo/share/perl6/site/bin:${PATH}"
-fi
-
 if [ -d $HOME/.p6env/bin ]; then
+
    PATH="${HOME}/.p6env/bin:${PATH}"
    eval "$(p6env init -)"
+
+elif [ -d $HOME/.rakudo/bin ]; then
+
+   PATH="${HOME}/.rakudo/bin:${HOME}/.rakudo/share/perl6/site/bin:${PATH}"
+
 fi
 
 if [ -d $HOME/.local/bin ]; then
@@ -345,4 +345,11 @@ fi
 # Node's "n" install tool
 if [ -d $HOME/.node-n ]; then
    export N_PREFIX="$HOME/.node-n"
+fi
+
+# Direnv
+if [ "X$(type -t direnv)" = "Xfile" ]; then
+
+   eval "$(direnv hook bash)"
+
 fi

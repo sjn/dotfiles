@@ -23,5 +23,4 @@
 -nsfp # no space after function
 -sot # Stack opening tokens
 -tso # Tight secret operators
--t # We use tabs at husleie.no
 -et=4
