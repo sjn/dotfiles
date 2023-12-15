@@ -353,3 +353,13 @@ if [ "X$(type -t direnv)" = "Xfile" ]; then
    eval "$(direnv hook bash)"
 
 fi
+
+if [ -d $HOME/.pyenv ] && [ "fileX" = "$(type -t pyenv)X" ]; then
+
+   # added by Webi for pyenv
+   eval "$(pyenv init -)"
+   eval "$(pyenv virtualenv-init -)"
+
+   # Generated for envman. Do not edit.
+   [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+fi

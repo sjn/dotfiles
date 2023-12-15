@@ -8,9 +8,11 @@ CONF_FILES := .bash_profile .bash_aliases \
 	.git-prompt.bash .git-completion.bash .config/git/config \
 	.screenrc .tmux.conf .vimrc .vim .perltidyrc .signature
 
+CONF_TEMPLATES := .gitconfig.local
+
 TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 
-all: submodules symlinks
+all: submodules symlinks templates
 
 submodules: init
 	git submodule foreach --recursive git fetch
@@ -18,11 +20,17 @@ submodules: init
 
 symlinks: ${TARGETS} .bashrc
 
+templates: ${CONF_TEMPLATES}
+
 init:
 	git submodule update --init --recursive --force
 
 packages:
 	sudo apt-get install build-essential cmake
+
+${CONF_TEMPLATES}:
+	@echo "Copying template file for $@, if it does not exist already"
+	test -f $@ && echo "Skipping $@" || cp -a $@ ~/$@
 
 ${TARGETS}:
 	@echo Updating link for $@
