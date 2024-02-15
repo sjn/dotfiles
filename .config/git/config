@@ -34,6 +34,8 @@
   ready     = rebase -i @{u}
   stashed   = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
   cmp       = diff -b --word-diff=color --word-diff-regex='[[:alnum:]_]+|[^[:space:]]'
+  staash    = stash --all
+  blamed    = blame -C -C
   #branch-note = '!git config branch.$(git symbolic-ref HEAD|sed "s/refs\/heads\///").note $( if [ "$#" -gt 0 ]; then $1; fi; )'
 
 # http://www.youtube.com/watch?v=Z2ZL14WWEJI
@@ -68,6 +70,12 @@
 
 [include]
   path = ~/.gitconfig.local
+
+[includeIf "gitdir:~/work/"]
+  path = ~/work/.gitconfig.work
+
+[includeIf "gitdir:~/src/"]
+  path = ~/src/.gitconfig.play
 
 [diff "zip"]
   textconv = unzip -v
