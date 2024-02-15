@@ -5,7 +5,7 @@
 
 # set PATH so it includes user's private bin if it exists
 if [ -d ~/bin ] ; then
-    PATH=~/bin:"${PATH}"
+    [ "${PATH#*:$HOME/bin}" == "$PATH" ] && export PATH="$PATH:$HOME/bin"
 fi
 
 # do the same with MANPATH
@@ -15,18 +15,13 @@ fi
 
 # add sbin dirs
 if [ -d /usr/local/sbin ]; then
-    PATH="${PATH}":/usr/local/sbin
+    [ "${PATH#*:/usr/local/bin}" == "$PATH" ] && export PATH="$PATH:/usr/local/bin"
 fi
 if [ -d /usr/sbin ]; then
-    PATH="${PATH}":/usr/sbin
+    [ "${PATH#*:/usr/sbin}" == "$PATH" ] && export PATH="$PATH:/usr/sbin"
 fi
 if [ -d /sbin ]; then
-    PATH="${PATH}":/sbin
-fi
-
-if [ -d /opt/rakudo/bin ]; then
-	PATH="${PATH}:/opt/rakudo/bin:/opt/rakudo/share/perl6/site/bin:/opt/rakudo/share/perl6/core/bin"
-	export PATH
+    [ "${PATH#*:/sbin}" == "$PATH" ] && export PATH="$PATH:/sbin"
 fi
 
 # if we have a dumb terminal, let's not do all the preparations below
@@ -318,19 +313,27 @@ if [ -d $HOME/.rakudobrew ]; then
    eval "$(/home/sjn/.rakudobrew/bin/rakudobrew init -)"
 fi
 
-if [ -d $HOME/.p6env/bin ]; then
+if [ -d /opt/rakudo/bin ]; then
+
+   [ "${PATH#*:/opt/rakudo/bin}" == "$PATH" ] && export PATH="$PATH:/opt/rakudo/bin"
+   [ "${PATH#*:/opt/rakudo/share/perl6/site/bin}" == "$PATH" ] && export PATH="$PATH:/opt/rakudo/share/perl6/site/bin"
+   [ "${PATH#*:/opt/rakudo/share/perl6/core/bin}" == "$PATH" ] && export PATH="$PATH:/opt/rakudo/share/perl6/core/bin"
+
+elif [ -d $HOME/.p6env/bin ]; then
 
    PATH="${HOME}/.p6env/bin:${PATH}"
    eval "$(p6env init -)"
 
 elif [ -d $HOME/.rakudo/bin ]; then
 
-   PATH="${HOME}/.rakudo/bin:${HOME}/.rakudo/share/perl6/site/bin:${PATH}"
+   [ "${PATH#*:$HOME/.rakudo/bin}" == "$PATH" ] && export PATH="$PATH:$HOME/.rakudo/bin"
+   [ "${PATH#*:$HOME/.rakudo/share/perl6/site/bin}" == "$PATH" ] && export PATH="$PATH:$HOME/.rakudo/share/perl6/site/bin"
+   [ "${PATH#*:$HOME/.rakudo/share/perl6/core/bin}" == "$PATH" ] && export PATH="$PATH:$HOME/.rakudo/share/perl6/core/bin"
 
 fi
 
 if [ -d $HOME/.local/bin ]; then
-   PATH="${HOME}/.local/bin:${PATH}"
+   [ "${PATH#*:$HOME/.local/bin}" == "$PATH" ] && export PATH="$PATH:$HOME/.local/bin"
 fi
 
 # Pager environment (for more useful defaults)
@@ -363,3 +366,15 @@ if [ -d $HOME/.pyenv ] && [ "fileX" = "$(type -t pyenv)X" ]; then
    # Generated for envman. Do not edit.
    [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 fi
+
+# Clean up PATH
+
+OLDPATH="$PATH"; NEWPATH=""; colon=""
+while [ "${OLDPATH#*:}" != "$OLDPATH" ]
+do  entry="${OLDPATH%%:*}"; search=":${OLDPATH#*:}:"
+    [ "${search#*:$entry:}" == "$search" ] && NEWPATH="$NEWPATH$colon$entry" && colon=:
+    OLDPATH="${OLDPATH#*:}"
+done
+NEWPATH="$NEWPATH:$OLDPATH"
+export PATH="$NEWPATH"
+unset OLDPATH NEWPATH
