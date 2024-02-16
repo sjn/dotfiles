@@ -92,3 +92,9 @@
 [init]
 	defaultBranch = main
 
+[rerere]
+	enabled = true
+[columns]
+	ui = auto
+[branch]
+	sort = -committerdate
