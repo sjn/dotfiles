@@ -474,6 +474,7 @@ imap <silent> <s-tab> <Esc>:if &modifiable && !&readonly &&
 
 " markdown stuff
 let g:vim_markdown_folding_disabled=1
+autocmd FileType markdown setlocal spell spelllang=en_us
 
 " spelling
 "setlocal spell spelllang=en_us
