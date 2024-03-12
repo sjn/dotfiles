@@ -133,6 +133,8 @@ set laststatus=2 " Always show status bar
 
 """" Mouse, Keyboard, Terminal
 set mouse=a         " Allow mouse use in normal and visual mode.
+""set ttymouse=xterm2 " Most terminals send modern xterm mouse reporting
+""                    " but this isn't always detected in GNU Screen.
 set timeoutlen=2000 " Wait 2 seconds before timing out a mapping
 set ttimeoutlen=100 " and only 100 ms before timing out on a keypress.
 set lazyredraw      " Avoid redrawing the screen mid-command.
@@ -472,6 +474,7 @@ imap <silent> <s-tab> <Esc>:if &modifiable && !&readonly &&
 
 " markdown stuff
 let g:vim_markdown_folding_disabled=1
+autocmd FileType markdown setlocal spell spelllang=en_us
 
 " spelling
 "setlocal spell spelllang=en_us

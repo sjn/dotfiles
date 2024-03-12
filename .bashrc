@@ -287,18 +287,23 @@ if [ -f $HOME/.plenv/bin/plenv ]; then
 
    export PATH="$HOME/.plenv/bin:$PATH"
    eval "$(plenv init -)"
+   export PERL_ENV_LOADED="$HOME/.plenv"
 
 
 elif [ -f $HOME/perl5/perlbrew/etc/bashrc ]; then
 
    source $HOME/perl5/perlbrew/etc/bashrc
+   export PERL_ENV_LOADED="$HOME/perl5/perlbrew"
 
-elif [ -f $HOME/perl5 ]; then
+fi
+
+# Look for local::lib env in any case
+if [ -d $HOME/perl5 ]; then
 
     for perllibdir in $HOME/perl5; do
         if [ -d $perllibdir/lib/perl5 ]; then
             eval "$(perl -I$perllibdir/lib/perl5 -Mlocal::lib)"
-            export PATH=${PATH}:$perllibdir/bin
+			export PERL_ENV_LOADED="${PERL_ENV_LOADED}:$perllibdir/lib/perl5"
             break
         fi
     done
@@ -337,7 +342,7 @@ if [ -d $HOME/.local/bin ]; then
 fi
 
 # Pager environment (for more useful defaults)
-export PAGER="less -+c -e -R"
+export PAGER="less -+c -e"
 
 if [ -d $HOME/.bashrc.d ]; then
    for rcfile in $HOME/.bashrc.d/*.sh; do

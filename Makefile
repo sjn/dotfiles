@@ -6,9 +6,10 @@
 
 CONF_FILES := .bash_profile .bash_aliases \
 	.git-prompt.bash .git-completion.bash .config/git/config \
-	.screenrc .tmux.conf .vimrc .vim .perltidyrc .signature
+	.screenrc .tmux.conf .vimrc .vim .perltidyrc .signature \
+	.gitconfig.local
 
-CONF_TEMPLATES := .gitconfig.local
+CONF_TEMPLATES := .empty
 
 TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 
