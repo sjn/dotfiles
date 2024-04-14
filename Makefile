@@ -16,7 +16,7 @@ TARGETS := $(addprefix $(HOME)/, $(CONF_FILES))
 all: submodules symlinks templates
 
 submodules: init
-	git submodule foreach --recursive git fetch
+	git submodule foreach --recursive git fetch --prune --all
 	git submodule update --recursive
 
 symlinks: ${TARGETS} .bashrc
