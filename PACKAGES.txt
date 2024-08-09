@@ -20,5 +20,7 @@ fonts-noto
 xdg-utils
 keymapper
 tmux
+cpanminus
+syncthing
 # https://github.com/norihiro/obs-color-monitor/releases/tag/0.4.4
 obs-color-monitor
