@@ -19,5 +19,6 @@ rlwrap
 fonts-noto
 xdg-utils
 keymapper
+tmux
 # https://github.com/norihiro/obs-color-monitor/releases/tag/0.4.4
 obs-color-monitor
