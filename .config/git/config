@@ -38,35 +38,53 @@
   blamed    = blame -C -C
   #branch-note = '!git config branch.$(git symbolic-ref HEAD|sed "s/refs\/heads\///").note $( if [ "$#" -gt 0 ]; then $1; fi; )'
 
-# http://www.youtube.com/watch?v=Z2ZL14WWEJI
+# Sources:
+#   http://www.youtube.com/watch?v=Z2ZL14WWEJI
+#   https://blog.gitbutler.com/how-git-core-devs-configure-git/
 [color]
   branch = auto
   diff = auto
   interactive = auto
   status = auto
   ui = true
+
 [core]
   autocrlf = input
   whitespace = fix,space-before-tab,tab-in-indent,trailing-space
+#	excludesfile = ~/.gitignore
+
 [credential]
 # Requires compilation
 	helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-[diff]
-# algorithm = histogram
-  algorithm = patience
+
 [push]
-  default = current
+#  default = current
+	default = simple
+	autoSetupRemote = true
+	followTags = true
+
+[fetch]
+#	prune = true
+	pruneTags = true
+	all = true
 
 [status]
   submoduleSummary = false
 
 [diff]
-  noprefix = true
-  renames = copies
+#	renames = copies
+	renames = true
+#	algorithm = patience
+	algorithm = histogram
+	colorMoved = plain
+#	noprefix = true
+	mnemonicPrefix = true
 
 [merge]
   recursive = patience
   tool = meld
+#	conflictstyle = diff3
+	conflictstyle = zdiff3
 
 [include]
   path = ~/.gitconfig.local
@@ -87,14 +105,38 @@
   textconv = hexdump -v -C
 
 [pull]
-	rebase = false
+## Don't enable unless you're moving to a rebase-heavy workflow
+#	rebase = true
+
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
 
 [init]
 	defaultBranch = main
 
 [rerere]
 	enabled = true
-[columns]
+
+[column]
 	ui = auto
+
 [branch]
 	sort = -committerdate
+
+[commit]
+	verbose = true
+
+[tag]
+	sort = version:refname
+
+[help]
+	autocorrect = prompt
+
+[rerere]
+	enabled = true
+	autoupdate = true
+
+[grep]
+	patternType = perl
