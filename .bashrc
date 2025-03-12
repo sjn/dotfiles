@@ -314,8 +314,9 @@ if [ -f $HOME/.gnupg/secring.gpg ]; then
    GPGKEY=B14126EA
 fi
 
-if [ -d $HOME/.rakudobrew ]; then
-   eval "$(/home/sjn/.rakudobrew/bin/rakudobrew init -)"
+# https://rakubrew.org/ (replaces rakudobrew)
+if [ -d $HOME/.rakubrew ]; then
+   eval "$(/home/sjn/.rakubrew/bin/rakubrew init -)"
 fi
 
 if [ -d /opt/rakudo/bin ]; then
@@ -362,8 +363,9 @@ if [ "X$(type -t direnv)" = "Xfile" ]; then
 
 fi
 
-if [ -d $HOME/.pyenv ] && [ "fileX" = "$(type -t pyenv)X" ]; then
+if [ -d $HOME/.pyenv ] && [ "fileX" = "$(type -t $HOME/.pyenv/bin/pyenv)X" ]; then
 
+   PATH="${HOME}/.pyenv/bin:${PATH}"
    # added by Webi for pyenv
    eval "$(pyenv init -)"
    eval "$(pyenv virtualenv-init -)"
