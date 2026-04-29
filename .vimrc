@@ -66,7 +66,7 @@ set number
 set wrap
 set linebreak
 set formatoptions+=qrn1lcj
-set clipboard=exclude:.*
+"set clipboard=exclude:.*
 
 
 
