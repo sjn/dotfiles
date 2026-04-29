@@ -205,7 +205,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 if [ -d $HOME/.bash_completion.d ] && ! shopt -oq posix; then
-    source $HOME/.bash_completion.d/bash_completion.sh
+    for c in $HOME/.bash_completion.d/*.{bash,sh}; do
+        [ -f $c ] && source $c
+    done
 fi
 
 
