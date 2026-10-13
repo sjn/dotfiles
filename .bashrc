@@ -150,6 +150,7 @@ export LANG=nb_NO.utf8
 export LOCALE=nb_NO.utf8
 export LC_MESSAGES=C
 export LESSCHARSET='utf-8'
+export LESS="--wordwrap -R"
 
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -375,6 +376,10 @@ if [ -d $HOME/.pyenv ] && [ "fileX" = "$(type -t $HOME/.pyenv/bin/pyenv)X" ]; th
    # Generated for envman. Do not edit.
    [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 fi
+
+# Set up ssh-askpass
+#export SSH_ASKPASS_REQUIRE=prefer
+
 
 # Clean up PATH
 
