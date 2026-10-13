@@ -83,7 +83,7 @@
 [merge]
 	recursive = patience
 	tool = meld
-	conflictstyle = diff3
+#	conflictstyle = diff3
 #	conflictstyle = zdiff3
 
 [include]
